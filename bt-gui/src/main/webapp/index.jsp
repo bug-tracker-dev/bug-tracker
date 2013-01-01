@@ -1,5 +1,5 @@
 <html>
 <body>
-<h1>Index Page</h1>
+<script>self.location.replace('dispatcher/sample/home');</script>
 </body>
 </html>
