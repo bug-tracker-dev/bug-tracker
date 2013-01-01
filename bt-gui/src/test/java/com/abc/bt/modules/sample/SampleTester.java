@@ -1,6 +1,10 @@
 package com.abc.bt.modules.sample;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -11,6 +15,8 @@ import com.abc.bt.common.CommonTester;
 
 public class SampleTester extends CommonTester {
 
+	private static final Logger _LOG = Logger.getLogger(SampleTester.class);
+	
 	private MockHttpServletRequest mockreq;
 	private MockHttpServletResponse mockresp;
 	
@@ -25,7 +31,7 @@ public class SampleTester extends CommonTester {
 		mockreq.setRequestURI("/sample/home");
 		mockreq.setMethod("POST");
 		ModelAndView mav = execute(mockreq, mockresp);
-		System.out.println(mav);
+		_LOG.info(mav);
 	}
 	
 	@Test
@@ -33,24 +39,46 @@ public class SampleTester extends CommonTester {
 		mockreq.setRequestURI("/sample/legacy");
 		mockreq.setMethod("POST");
 		ModelAndView mav = execute(mockreq, mockresp);
-		System.out.println(mav);
+		_LOG.info(mav);
 	}
 
 	@Test
 	public void json() throws Exception {
-		//mockreq.setContentType(MediaType.APPLICATION_JSON.toString());
-		//mockreq.addHeader("Accept", MediaType.APPLICATION_JSON.toString());
 		mockreq.setRequestURI("/sample/json");
 		mockreq.setMethod("POST");
-		
-		
-		//Set<MediaType> mediaTypes = new HashSet<MediaType>();
-		//mediaTypes.add(MediaType.APPLICATION_JSON);
 
 		ModelAndView mav = execute(mockreq, mockresp);
-		System.out.println(mav);
+		_LOG.info(mav);
 		String returnjson = mockresp.getContentAsString();
-		System.out.println(returnjson);
+		_LOG.info(returnjson);
+	}
+	
+	@Test
+	public void complex() throws Exception {
+		mockreq.setRequestURI("/sample/complex");
+		mockreq.setMethod("POST");
 		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("username", "guest");
+		params.put("password", "12345");
+		params.put("gender", "M");
+		
+		mockreq.setParameters(params);
+
+		ModelAndView mav = execute(mockreq, mockresp);
+		_LOG.info(mav);
+		String returnjson = mockresp.getContentAsString();
+		_LOG.info(returnjson);
+	}
+	
+	@Test
+	public void jsonarray() throws Exception {
+		mockreq.setRequestURI("/sample/jsonarray");
+		mockreq.setMethod("POST");
+		
+		ModelAndView mav = execute(mockreq, mockresp);
+		_LOG.info(mav);
+		String returnjson = mockresp.getContentAsString();
+		_LOG.info(returnjson);
 	}
 }
