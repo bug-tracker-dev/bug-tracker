@@ -5,6 +5,20 @@
 	<artifactId>bt-gui</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+	
+	<properties>
+		<!-- plugin versions -->
+		
+		
+		<!-- dependency versions -->
+		<springframework.version>3.2.0.RELEASE</springframework.version>
+		<slf4j.version>1.7.2</slf4j.version>
+		<log4j.version>1.2.14</log4j.version>
+		<jackson.version>1.9.11</jackson.version>
+		<servlet-api.version>2.4</servlet-api.version>
+		<jstl.version>1.2</jstl.version>
+		<junit.version>4.11</junit.version>
+	</properties>
 
 	<build>
 		<defaultGoal>tomcat:run</defaultGoal>
@@ -25,15 +39,9 @@
 			</plugin>
 		</plugins>
 	</build>
-	
-	<properties>
-		<springframework.version>3.2.0.RELEASE</springframework.version>
-		<slf4j.version>1.7.2</slf4j.version>
-		<log4j.version>1.2.14</log4j.version>
-		<jackson.version>1.9.11</jackson.version>
-	</properties>
-	
+
 	<dependencies>
+		<!-- SPRING FRAMEWORK -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -44,6 +52,8 @@
 			<artifactId>spring-test</artifactId>
 			<version>${springframework.version}</version>
 		</dependency>
+		
+		<!-- LOG -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -59,17 +69,21 @@
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
+		
+		<!-- JAVAEE -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
-			<version>2.4</version>
+			<version>${servlet-api.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
-			<version>1.2</version>
+			<version>${jstl.version}</version>
 		</dependency>
+		
+		<!-- JSON -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-asl</artifactId>
@@ -80,20 +94,12 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
+		
+		<!-- JUNIT -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>2.1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.1.2</version>
+			<version>${junit.version}</version>
 		</dependency>
 	</dependencies>
 </project>
