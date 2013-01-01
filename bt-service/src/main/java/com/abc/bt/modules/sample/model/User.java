@@ -1,4 +1,4 @@
-package com.abc.bt.module.sample.model;
+package com.abc.bt.modules.sample.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
