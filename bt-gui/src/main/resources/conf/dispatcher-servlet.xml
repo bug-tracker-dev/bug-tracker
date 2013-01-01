@@ -24,7 +24,7 @@
 		</property>
 	</bean>
 
-	<!-- content neotiating view resolver -->
+	<!-- content neotiating view resolver, a delegate over the accept header -->
 	<bean id="contentNegotiatingViewResolver" class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="contentNegotiationManager">
 			<bean class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
