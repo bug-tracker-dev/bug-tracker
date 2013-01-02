@@ -11,6 +11,15 @@
 	<context:annotation-config />
 	
 	<context:component-scan base-package="com.abc.bt" />
+	
+	<!-- jaxb xml marshaller -->
+	<bean id="jaxb2XMLMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="classesToBeBound">
+			<array>
+				<value>com.abc.bt.modules.sample.model.ComplexForm</value>
+			</array>
+		</property>
+	</bean>
 
 	<!-- request mapping handler mapping -->
 	<bean id="requestMappingHandlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
@@ -24,15 +33,7 @@
 				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
 				<!-- For XML Converting -->
 				<bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
-					<property name="marshaller">
-						<bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-							<property name="classesToBeBound">
-								<array>
-									<value>com.abc.bt.modules.sample.model.ComplexForm</value>
-								</array>
-							</property>
-						</bean>
-					</property>
+					<property name="marshaller" ref="jaxb2XMLMarshaller" />
 				</bean>
 			</list>
 		</property>
