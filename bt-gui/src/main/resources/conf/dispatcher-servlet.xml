@@ -66,6 +66,7 @@
 		</property>
 	</bean>
 
+	<!-- change ur comment into English -->
 	<!-- GLOBAL EXCEPTION -->
 	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">
