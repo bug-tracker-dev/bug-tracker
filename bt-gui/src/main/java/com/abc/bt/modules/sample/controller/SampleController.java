@@ -45,7 +45,7 @@ public class SampleController {
 	
 	@RequestMapping(value = "/jsonarray")
 	public @ResponseBody List<ComplexForm> jsonarray() {
-		_LOG.info("json");
+		_LOG.info("jsonarray");
 
 		List<ComplexForm> fs = new ArrayList<ComplexForm>();
 		ComplexForm f = null;
