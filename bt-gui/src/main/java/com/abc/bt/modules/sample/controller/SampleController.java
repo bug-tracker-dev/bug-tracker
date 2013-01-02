@@ -83,4 +83,17 @@ public class SampleController {
 		
 		return "sample/legacy";
 	}
+	
+	@RequestMapping(value = "xml")
+	public @ResponseBody ComplexForm xml() {
+		
+		_LOG.info("sample xml request");
+		
+		ComplexForm cf = new ComplexForm();
+		cf.setUsername("guest");
+		cf.setPassword("123456");
+		cf.setGender("M");
+		
+		return cf;
+	}
 }

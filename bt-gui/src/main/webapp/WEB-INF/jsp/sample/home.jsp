@@ -9,6 +9,9 @@
 <input type="button" value="map json" onclick="mapjson()"/> <br>
 <input type="button" value="json array" onclick="jsonarray()"/> <br>
 <input type="button" value="complex form" onclick="complexform()"/> <br>
+
+<input type="button" value="xml" onclick="xml()" /> <br>
+
 <a href="legacy">legacy request</a>
 <hr>
 

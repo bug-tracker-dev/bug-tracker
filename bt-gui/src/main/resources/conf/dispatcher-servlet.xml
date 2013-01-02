@@ -22,6 +22,18 @@
 			<list>
 				<!-- For JSON Converting -->
 				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+				<!-- For XML Converting -->
+				<bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+					<property name="marshaller">
+						<bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+							<property name="classesToBeBound">
+								<array>
+									<value>com.abc.bt.modules.sample.model.ComplexForm</value>
+								</array>
+							</property>
+						</bean>
+					</property>
+				</bean>
 			</list>
 		</property>
 	</bean>
@@ -33,6 +45,7 @@
 				<property name="mediaTypes">
 					<props>
 						<prop key="atom">application/atom+xml</prop>
+						<prop key="xml">application/xml</prop>
 						<prop key="html">text/html</prop>
 						<prop key="json">application/json</prop>
 					</props>

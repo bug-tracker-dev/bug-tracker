@@ -26,3 +26,13 @@ function complexform() {
 	  }
 	});
 }
+
+function xml() {
+	$.ajax({
+	  url: 'xml',
+	  dataType: 'xml',
+	  success: function(data) {
+	  	alert(data);
+	  }
+	});
+}

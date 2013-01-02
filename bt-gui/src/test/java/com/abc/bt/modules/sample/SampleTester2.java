@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 
 import com.abc.bt.common.CommonTester2;
@@ -24,7 +25,7 @@ public class SampleTester2 extends CommonTester2 {
 			
 			// write your test code here. in the try|catch block
 			
-			ResultActions ra = this.mockMvc.perform(post("/sample/json"));
+			ResultActions ra = this.mockMvc.perform(post("/sample/json").accept(MediaType.APPLICATION_JSON));
 			
 			Object o = ra.andReturn().getResponse().getContentAsString();
 			_LOG.info(o);
@@ -35,6 +36,18 @@ public class SampleTester2 extends CommonTester2 {
 			  .andExpect(jsonPath("$.prop_2").value(2))
 			  .andExpect(jsonPath("$.prop_3").value(3))
 			  .andExpect(jsonPath("$.prop_4").value(4));
+		} catch (Throwable e) {
+			_LOG.error(e.getMessage(), e);
+		}
+	}
+	
+	@Test
+	public void xml() {
+		try {
+			ResultActions ra = this.mockMvc.perform(post("/sample/xml").accept(MediaType.APPLICATION_XML));
+			Object o = ra.andReturn().getResponse().getContentAsString();
+			_LOG.info(o);
+			
 		} catch (Throwable e) {
 			_LOG.error(e.getMessage(), e);
 		}
