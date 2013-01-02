@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.abc.bt.common.CommonTester;
 
+@Deprecated
 public class SampleTester extends CommonTester {
 
 	private static final Logger _LOG = Logger.getLogger(SampleTester.class);
