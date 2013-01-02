@@ -18,6 +18,7 @@
 		<servlet-api.version>2.4</servlet-api.version>
 		<jstl.version>1.2</jstl.version>
 		<junit.version>4.11</junit.version>
+		<jsonpath.version>0.8.1</jsonpath.version>
 	</properties>
 
 	<build>
@@ -100,6 +101,11 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>${jsonpath.version}</version>
 		</dependency>
 	</dependencies>
 </project>
