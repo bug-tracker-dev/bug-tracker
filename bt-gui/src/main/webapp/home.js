@@ -20,7 +20,8 @@ function complexform() {
 	$.ajax({
 	  url: 'complex',
 	  type: "POST",
-	  data: {username: 'guest', password: '123456', sex: 'M'},
+	  dataType: 'json',
+	  data: {username: 'guest', password: '123456', gender: 'M'},
 	  success: function(data) {
 	  	alert(JSON.stringify(data));
 	  }

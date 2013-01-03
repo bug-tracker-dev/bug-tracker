@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.abc.bt.modules.sample.model.ComplexForm;
 
@@ -95,5 +96,10 @@ public class SampleController {
 		cf.setGender("M");
 		
 		return cf;
+	}
+	
+	@RequestMapping(value = "upload")
+	public void upload(MultipartFile file) {
+		//TODO 
 	}
 }
