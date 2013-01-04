@@ -12,6 +12,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -25,7 +27,7 @@ import com.abc.bt.common.model.Page;
 
 public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	
-	@Autowired
+	@Resource(name="sessionFactory")
 	private SessionFactory sessionFactory;
 	
 	/** 当前Dao所要操作的Bean的class地址. */
@@ -285,13 +287,13 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 		
 		countHql.append("SELECT COUNT(*) FROM " + persistentClass.getName());
 		// 添加where条件，并返回参数
-		final Object[] countArgs = apendHQLCondition(map,like, countHql);
+		final Object[] countArgs = appendHQLCondition(map,like, countHql);
 		
 
 		StringBuffer resultHql = new StringBuffer();
 		resultHql.append("FROM " + persistentClass.getName());
 		// 添加where条件，并返回参数
-		final Object[] resultArgs = apendHQLCondition(map,like, resultHql);
+		final Object[] resultArgs = appendHQLCondition(map,like, resultHql);
 		
 		
 		if(orderby!=null){
@@ -389,7 +391,7 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	 * @param whereHql 
 	 * @return 返回查询条件参数
 	 */
-	private Object[] apendHQLCondition(Map<String, Object> map,boolean like,
+	private Object[] appendHQLCondition(Map<String, Object> map,boolean like,
 			StringBuffer whereHql) {
 		Object[] args = null;
 		if (null != map && 0 < map.size()) {
