@@ -1,4 +1,4 @@
-package com.abc.bt.common;
+package com.abc.bt.common.test;
 
 
 import org.junit.Before;
@@ -20,7 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 @RunWith(value = SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = "classpath*:conf/dispatcher-servlet.xml")
-public class CommonTester2 {
+public class GUICommonTester2 {
 
 	@Autowired
 	private WebApplicationContext wac;

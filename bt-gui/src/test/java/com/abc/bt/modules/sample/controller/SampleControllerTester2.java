@@ -1,4 +1,4 @@
-package com.abc.bt.modules.sample;
+package com.abc.bt.modules.sample.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -8,11 +8,11 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 
-import com.abc.bt.common.CommonTester2;
+import com.abc.bt.common.test.GUICommonTester2;
 
-public class SampleTester2 extends CommonTester2 {
+public class SampleControllerTester2 extends GUICommonTester2 {
 
-	private static final Logger _LOG = Logger.getLogger(SampleTester2.class);
+	private static final Logger _LOG = Logger.getLogger(SampleControllerTester2.class);
 
 	
 	/**

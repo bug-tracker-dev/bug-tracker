@@ -1,4 +1,4 @@
-package com.abc.bt.modules.sample;
+package com.abc.bt.modules.sample.controller;
 
 
 import java.util.HashMap;
@@ -11,12 +11,12 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.abc.bt.common.CommonTester;
+import com.abc.bt.common.test.GUICommonTester;
 
 @Deprecated
-public class SampleTester extends CommonTester {
+public class SampleControllerTester extends GUICommonTester {
 
-	private static final Logger _LOG = Logger.getLogger(SampleTester.class);
+	private static final Logger _LOG = Logger.getLogger(SampleControllerTester.class);
 	
 	private MockHttpServletRequest mockreq;
 	private MockHttpServletResponse mockresp;

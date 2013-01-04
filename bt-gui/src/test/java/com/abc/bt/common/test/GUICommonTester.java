@@ -1,4 +1,4 @@
-package com.abc.bt.common;
+package com.abc.bt.common.test;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 @Deprecated
 @RunWith(value = SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:conf/dispatcher-servlet.xml")
-public class CommonTester {
+public class GUICommonTester {
 
 	@Resource(name = "requestMappingHandlerMapping")
 	private RequestMappingHandlerMapping handlerMapping;
