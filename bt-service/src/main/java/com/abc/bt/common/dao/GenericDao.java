@@ -12,7 +12,6 @@ import java.util.Map;
 
 import com.abc.bt.common.model.Page;
 
-
 /**
  * Dao 包含DAO层操作数据库的基本方法.
  * 
@@ -105,16 +104,15 @@ public interface GenericDao<T> {
 	 */
 	void saveAll(Collection<T> coll);
 
-
 	/**
 	 * 修改一条信息.
 	 */
 	void update(T value);
 
 	void saveOrUpdate(T o);
-	
+
 	List<T> findByHQL(String hql);
-	
+
 	/**
 	 * 根据属性名值进行查询.
 	 * 
@@ -125,8 +123,7 @@ public interface GenericDao<T> {
 	 * @return 获得符合条件的数据的条数
 	 */
 	int findColumnCount(String propertyName, Object propertyValue);
-	
-	
+
 	/**
 	 * 根据条件查询某个Bean.
 	 * 
@@ -146,8 +143,7 @@ public interface GenericDao<T> {
 	 * @return 返回find(from 表 where id=11 or name='myName')的结果
 	 */
 	List<T> selectBySqlConditionOr(String... strings);
-	
-	
+
 	/**
 	 * 分页查询.
 	 * 
@@ -155,12 +151,12 @@ public interface GenericDao<T> {
 	 *            条件map
 	 * @param page
 	 *            page对象
-	 * @param orderby 
-	 * 			  排序
+	 * @param orderby
+	 *            排序
 	 * @return Page对象
 	 */
-	public Page<T> pageQuery(Map<String, Object> map, Page<T> page,LinkedHashMap<String, String> orderby);
-	
+	public Page<T> pageQuery(Map<String, Object> map, Page<T> page, LinkedHashMap<String, String> orderby);
+
 	/**
 	 * 分页查询.
 	 * 
@@ -168,14 +164,14 @@ public interface GenericDao<T> {
 	 *            条件map
 	 * @param page
 	 *            page对象
-	 * @param orderby 
-	 * 			  排序
-	 * @param like 
-	 * 			  是否模糊搜索
+	 * @param orderby
+	 *            排序
+	 * @param like
+	 *            是否模糊搜索
 	 * @return Page对象
 	 */
-	public Page<T> pageQuery(Map<String, Object> map, Page<T> page,LinkedHashMap<String, String> orderby,boolean like);
-	
+	public Page<T> pageQuery(Map<String, Object> map, Page<T> page, LinkedHashMap<String, String> orderby, boolean like);
+
 	/**
 	 * 分页查询.
 	 * 
@@ -183,12 +179,12 @@ public interface GenericDao<T> {
 	 *            条件map
 	 * @param page
 	 *            page对象
-	 * @param like 
-	 * 			  是否模糊搜索
+	 * @param like
+	 *            是否模糊搜索
 	 * @return Page对象
 	 */
 	public Page<T> pageQuery(Map<String, Object> map, Page<T> page, boolean like);
-	
+
 	/**
 	 * 分页查询.
 	 * 
@@ -199,18 +195,18 @@ public interface GenericDao<T> {
 	 * @return Page对象
 	 */
 	public Page<T> pageQuery(Map<String, Object> map, Page<T> page);
-	
+
 	/**
 	 * 分页查询.
 	 * 
 	 * @param page
 	 *            page对象
-	 * @param orderby 
-	 * 			  排序
+	 * @param orderby
+	 *            排序
 	 * @return Page对象
 	 */
-	public Page<T> pageQuery(Page<T> page,LinkedHashMap<String, String> orderby);
-	
+	public Page<T> pageQuery(Page<T> page, LinkedHashMap<String, String> orderby);
+
 	/**
 	 * 分页查询.
 	 * 
@@ -218,6 +214,6 @@ public interface GenericDao<T> {
 	 *            page对象
 	 * @return Page对象
 	 */
-	public Page<T> pageQuery(Page<T> page) ;
-	
+	public Page<T> pageQuery(Page<T> page);
+
 }

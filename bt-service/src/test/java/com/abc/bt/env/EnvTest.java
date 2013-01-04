@@ -14,7 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.abc.bt.common.model.Page;
-import com.abc.bt.modules.sample.model.User;
+import com.abc.bt.modules.sample.entity.User;
 import com.abc.bt.modules.sample.service.IUserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,7 +24,7 @@ public class EnvTest {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	@Resource(name="userService")
+	@Resource(name = "userService")
 	private IUserService userService;
 
 	@Test
@@ -76,51 +76,50 @@ public class EnvTest {
 		List<User> list = userService.findAll();
 		System.out.println(list.get(0).getUsername());
 	}
-	
+
 	@Test
-	public void testUpdateUser(){
+	public void testUpdateUser() {
 		User u1 = new User();
 		u1.setId(100001L);
 		u1.setUsername("abc");
 		userService.save(u1);
 		List<User> list = userService.findAll();
 		System.out.println(list.get(0).getUsername());
-		
+
 		u1.setUsername("efg");
 		userService.update(u1);
 		list = userService.findAll();
-		for(User user:list){
-			System.out.println("编号："+user.getId()+"    ------     姓名："+user.getUsername());
+		for (User user : list) {
+			System.out.println("编号：" + user.getId() + "    ------     姓名：" + user.getUsername());
 		}
 	}
-	
-	
+
 	@Test
-	public void testfindUserByPage(){
-		for(int i=0;i<20;i++){
+	public void testfindUserByPage() {
+		for (int i = 0; i < 20; i++) {
 			User u1 = new User();
-			u1.setId(100001L+i);
-			u1.setUsername("abc"+i);
+			u1.setId(100001L + i);
+			u1.setUsername("abc" + i);
 			userService.save(u1);
 		}
-		
-		Page<User> page=new Page<User>();
+
+		Page<User> page = new Page<User>();
 		page.setCurrentPage(1);
 		page.setPageSize(5);
-		
-		page=userService.findUserByPage(page);
-		
-		for(User user:page.getResult()){
-			System.out.println("编号："+user.getId()+"    ------     姓名："+user.getUsername());
+
+		page = userService.findUserByPage(page);
+
+		for (User user : page.getResult()) {
+			System.out.println("编号：" + user.getId() + "    ------     姓名：" + user.getUsername());
 		}
-		
+
 		System.out.println("---------------------------------------------------");
 		page.setCurrentPage(2);
-		
-		page=userService.findUserByPage(page);
-		
-		for(User user:page.getResult()){
-			System.out.println("编号："+user.getId()+"    ------     姓名："+user.getUsername());
+
+		page = userService.findUserByPage(page);
+
+		for (User user : page.getResult()) {
+			System.out.println("编号：" + user.getId() + "    ------     姓名：" + user.getUsername());
 		}
 	}
 }

@@ -14,24 +14,23 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.jdbc.ReturningWork;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ClassUtils;
 
 import com.abc.bt.common.model.Page;
 
 public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
-	
-	@Resource(name="sessionFactory")
+
+	@Resource(name = "sessionFactory")
 	private SessionFactory sessionFactory;
-	
+
 	/** 当前Dao所要操作的Bean的class地址. */
 	private Class<T> persistentClass;
+
 	public GenericDaoHibernateSupport() {
 		ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
 		persistentClass = (Class) pt.getActualTypeArguments()[0];
@@ -40,8 +39,8 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	public GenericDaoHibernateSupport(final Class<T> persistentClass) {
 		this.persistentClass = persistentClass;
 	}
-	
-	protected Session getSession(){
+
+	protected Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
@@ -63,8 +62,8 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	 *            对象集合
 	 */
 	public void deleteAll(Collection<T> list) {
-		
-		for(T t:list){
+
+		for (T t : list) {
 			this.getSession().delete(t);
 		}
 	}
@@ -78,8 +77,7 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	public void deleteById(String id) {
 		T o = this.findById(id);
 		if (null == o) {
-			throw new HibernateException("This Object by id is " + id
-					+ " does not exist");
+			throw new HibernateException("This Object by id is " + id + " does not exist");
 		}
 		this.getSession().delete(o);
 	}
@@ -96,10 +94,10 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	public ResultSet executeQuery(final String sql) throws Exception {
 		ResultSet rs = null;
 		try {
-			
-			return this.getSession().doReturningWork(new ReturningWork<ResultSet>(){
-				public ResultSet execute(Connection connection) throws SQLException{
-					PreparedStatement pstmt=connection.prepareStatement(sql);
+
+			return this.getSession().doReturningWork(new ReturningWork<ResultSet>() {
+				public ResultSet execute(Connection connection) throws SQLException {
+					PreparedStatement pstmt = connection.prepareStatement(sql);
 					return pstmt.executeQuery();
 				}
 			});
@@ -115,7 +113,7 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
-		return this.getSession().createQuery("FROM "+ ClassUtils.getShortName(persistentClass)).list();
+		return this.getSession().createQuery("FROM " + ClassUtils.getShortName(persistentClass)).list();
 	}
 
 	/**
@@ -127,8 +125,7 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<T> findAllByProperties(Map<String, Object> map) {
-		String hql = "from " + ClassUtils.getShortName(persistentClass)
-				+ " where 1=1 ";
+		String hql = "from " + ClassUtils.getShortName(persistentClass) + " where 1=1 ";
 		String[] names = new String[map.size()];
 		Object[] values = new Object[map.size()];
 		int i = 0;
@@ -138,9 +135,9 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 			values[i] = map.get(str);
 			i++;
 		}
-		Query query =this.getSession().createQuery(hql);
-		
-		for(int j=0;i<names.length;i++){
+		Query query = this.getSession().createQuery(hql);
+
+		for (int j = 0; i < names.length; i++) {
 			query.setParameter(names[i], values[i]);
 		}
 		return query.list();
@@ -156,11 +153,9 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	 * @return 根据条件获得的所有数据集
 	 */
 	@SuppressWarnings("unchecked")
-	public List<T> findAllByProperty(final String propertyName,
-			Object propertyValue) {
+	public List<T> findAllByProperty(final String propertyName, Object propertyValue) {
 
-		String hql = "from " + ClassUtils.getShortName(persistentClass)
-				+ " where " + propertyName + "= :" + propertyName;
+		String hql = "from " + ClassUtils.getShortName(persistentClass) + " where " + propertyName + "= :" + propertyName;
 		return this.getSession().createQuery(hql).setParameter(propertyName, propertyValue).list();
 	}
 
@@ -172,7 +167,7 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	 * @return 该id实体对象
 	 */
 	public T findById(Serializable idValue) {
-		return (T) this.getSession().get(persistentClass,idValue);
+		return (T) this.getSession().get(persistentClass, idValue);
 	}
 
 	/**
@@ -185,13 +180,11 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	 * @return 获得符合条件的数据的条数
 	 */
 	public int findColumnCount(String propertyName, Object propertyValue) {
-		String hql = "select count(*) from " + ClassUtils.getShortName(persistentClass)
-		+ " where " + propertyName + "= :" + propertyName;
-		return ((Number)this.getSession().createQuery(hql).setParameter(propertyName, propertyValue).uniqueResult()).intValue();
+		String hql = "select count(*) from " + ClassUtils.getShortName(persistentClass) + " where " + propertyName + "= :" + propertyName;
+		return ((Number) this.getSession().createQuery(hql).setParameter(propertyName, propertyValue).uniqueResult()).intValue();
 
 	}
 
-	
 	/**
 	 * 新增一条信息.
 	 * 
@@ -208,12 +201,11 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	 * 
 	 */
 	public void saveAll(Collection<T> coll) {
-		for(T t:coll){
+		for (T t : coll) {
 			this.getSession().save(t);
 		}
 	}
 
-	
 	/**
 	 * 修改一条信息.
 	 */
@@ -265,8 +257,6 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 		return this.getSession().createQuery(sql).list();
 	}
 
-	
-	
 	/**
 	 * 分页查询.
 	 * 
@@ -274,125 +264,128 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	 *            条件map
 	 * @param page
 	 *            page对象
-	 * @param orderby 
-	 * 			  排序
-	 * @param like 
-	 * 			  是否模糊搜索
+	 * @param orderby
+	 *            排序
+	 * @param like
+	 *            是否模糊搜索
 	 * @return Page对象
 	 */
-	public Page<T> pageQuery(Map<String, Object> map,Page<T> page,LinkedHashMap<String, String> orderby,boolean like) {
-		
+	public Page<T> pageQuery(Map<String, Object> map, Page<T> page, LinkedHashMap<String, String> orderby, boolean like) {
+
 		// 记录数Hql
 		StringBuffer countHql = new StringBuffer();
-		
+
 		countHql.append("SELECT COUNT(*) FROM " + persistentClass.getName());
 		// 添加where条件，并返回参数
-		final Object[] countArgs = appendHQLCondition(map,like, countHql);
-		
+		final Object[] countArgs = appendHQLCondition(map, like, countHql);
 
 		StringBuffer resultHql = new StringBuffer();
 		resultHql.append("FROM " + persistentClass.getName());
 		// 添加where条件，并返回参数
-		final Object[] resultArgs = appendHQLCondition(map,like, resultHql);
-		
-		
-		if(orderby!=null){
+		final Object[] resultArgs = appendHQLCondition(map, like, resultHql);
+
+		if (orderby != null) {
 			// 添加orderby条件
 			resultHql.append(buildOrderBy(orderby));
 		}
-		
-		
-		//执行查询
-		return  excutePageQuery(page.getCurrentPage(), page.getPageSize(), countArgs, resultArgs,countHql.toString(), resultHql.toString());
+
+		// 执行查询
+		return excutePageQuery(page.getCurrentPage(), page.getPageSize(), countArgs, resultArgs, countHql.toString(), resultHql.toString());
 	}
-	
-	
+
 	/**
 	 * 执行分页HQL查询
-	 * @param pageNo			起始页号
-	 * @param pageSize			一页查多少条 
-	 * @param countArgs			查询总记录数时HQL的参数
-	 * @param resultArgs		查询记录时HQL的参数
-	 * @param finalCountHql		查询总记录数的HQL
-	 * @param finalResultHql	查询记录的HQL
-	 * @return 	Page对象
+	 * 
+	 * @param pageNo
+	 *            起始页号
+	 * @param pageSize
+	 *            一页查多少条
+	 * @param countArgs
+	 *            查询总记录数时HQL的参数
+	 * @param resultArgs
+	 *            查询记录时HQL的参数
+	 * @param finalCountHql
+	 *            查询总记录数的HQL
+	 * @param finalResultHql
+	 *            查询记录的HQL
+	 * @return Page对象
 	 */
-	@SuppressWarnings( "unchecked" )
-	private Page<T> excutePageQuery(final int pageNo, final int pageSize,
-			final Object[] countArgs, final Object[] resultArgs,
+	@SuppressWarnings("unchecked")
+	private Page<T> excutePageQuery(final int pageNo, final int pageSize, final Object[] countArgs, final Object[] resultArgs,
 			final String finalCountHql, final String finalResultHql) {
-		
-				Page<T> page=new Page<T>();
 
-				//处理查询的列表
-				Query query=this.getSession().createQuery(finalResultHql);
-				//设置参数
-				setParams(query,resultArgs);
-				
-				//设置查询页面显示的数据
-				if(pageNo!=-1&&pageSize!=-1){
-					query.setFirstResult((pageNo - 1) * pageSize).setMaxResults(pageSize);
-				}
-				page.setResult(query.list());
-				
-				
-				//处理查询的总的记录数
-				query=this.getSession().createQuery(finalCountHql);
-				//设置参数
-				setParams(query,countArgs);
-				page.setTotalCount(((Number)query.uniqueResult()).intValue());
-				
-				page.setCurrentPage(pageNo);
-				page.setPageSize(pageSize);
-				
-				return page;
+		Page<T> page = new Page<T>();
+
+		// 处理查询的列表
+		Query query = this.getSession().createQuery(finalResultHql);
+		// 设置参数
+		setParams(query, resultArgs);
+
+		// 设置查询页面显示的数据
+		if (pageNo != -1 && pageSize != -1) {
+			query.setFirstResult((pageNo - 1) * pageSize).setMaxResults(pageSize);
+		}
+		page.setResult(query.list());
+
+		// 处理查询的总的记录数
+		query = this.getSession().createQuery(finalCountHql);
+		// 设置参数
+		setParams(query, countArgs);
+		page.setTotalCount(((Number) query.uniqueResult()).intValue());
+
+		page.setCurrentPage(pageNo);
+		page.setPageSize(pageSize);
+
+		return page;
 	}
-	
 
 	/**
 	 * 设置参数
+	 * 
 	 * @param query
 	 * @param params
 	 */
 	protected void setParams(Query query, Object[] params) {
-	  if(query==null){
-		  return;
-	  }
-	  if(params!=null&&params.length>0){
-		  for(int i=0;i<params.length;i++){
-			  query.setParameter(i, params[i]);
-		  }
-	  }
+		if (query == null) {
+			return;
+		}
+		if (params != null && params.length > 0) {
+			for (int i = 0; i < params.length; i++) {
+				query.setParameter(i, params[i]);
+			}
+		}
 	}
-	
+
 	/**
 	 * 处理排序
+	 * 
 	 * @param orderby
 	 * @return
 	 */
 	private String buildOrderBy(LinkedHashMap<String, String> orderby) {
-        StringBuffer orderBybuf=new StringBuffer("");
-		
-		//处理排序
-		if(orderby!=null&&!orderby.isEmpty()){
+		StringBuffer orderBybuf = new StringBuffer("");
+
+		// 处理排序
+		if (orderby != null && !orderby.isEmpty()) {
 			orderBybuf.append(" order by ");
-			for(String key:orderby.keySet()){
-			
-				orderBybuf.append(key+"  "+orderby.get(key)+",");
+			for (String key : orderby.keySet()) {
+
+				orderBybuf.append(key + "  " + orderby.get(key) + ",");
 			}
-			orderBybuf.deleteCharAt(orderBybuf.length()-1);
+			orderBybuf.deleteCharAt(orderBybuf.length() - 1);
 		}
 		return orderBybuf.toString();
 	}
-	
+
 	/**
 	 * 增加加查询条件
-	 * @param map	查询条件map
-	 * @param whereHql 
+	 * 
+	 * @param map
+	 *            查询条件map
+	 * @param whereHql
 	 * @return 返回查询条件参数
 	 */
-	private Object[] appendHQLCondition(Map<String, Object> map,boolean like,
-			StringBuffer whereHql) {
+	private Object[] appendHQLCondition(Map<String, Object> map, boolean like, StringBuffer whereHql) {
 		Object[] args = null;
 		if (null != map && 0 < map.size()) {
 			whereHql.append(" where ");
@@ -402,10 +395,10 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 			while (it.hasNext()) {
 				String columnKey = (String) it.next();
 				Object value = map.get(columnKey);
-				if(like){
+				if (like) {
 					whereHql.append(columnKey + " like ? ");
-					args[i] = "%"+value+"%";
-				}else{
+					args[i] = "%" + value + "%";
+				} else {
 					whereHql.append(columnKey + " = ? ");
 					args[i] = value;
 				}
@@ -418,11 +411,8 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 		return args;
 	}
 
-
-	
-
 	public void saveOrUpdate(T o) {
-		
+
 		this.getSession().saveOrUpdate(o);
 	}
 
@@ -433,14 +423,14 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	 *            条件map
 	 * @param page
 	 *            page对象
-	 * @param orderby 
-	 * 			  排序
+	 * @param orderby
+	 *            排序
 	 * @return Page对象
 	 */
 	public Page<T> pageQuery(Map<String, Object> map, Page<T> page, LinkedHashMap<String, String> orderby) {
 		return this.pageQuery(map, page, orderby, false);
 	}
-	
+
 	/**
 	 * 分页查询.
 	 * 
@@ -448,14 +438,14 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	 *            条件map
 	 * @param page
 	 *            page对象
-	 * @param like 
-	 * 			  是否模糊搜索
+	 * @param like
+	 *            是否模糊搜索
 	 * @return Page对象
 	 */
 	public Page<T> pageQuery(Map<String, Object> map, Page<T> page, boolean like) {
 		return this.pageQuery(map, page, null, like);
 	}
-	
+
 	/**
 	 * 分页查询.
 	 * 
@@ -468,32 +458,30 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	public Page<T> pageQuery(Map<String, Object> map, Page<T> page) {
 		return this.pageQuery(map, page, null, false);
 	}
-	
+
 	/**
 	 * 分页查询.
 	 * 
 	 * @param page
 	 *            page对象
-	 * @param orderby 
-	 * 			  排序
+	 * @param orderby
+	 *            排序
 	 * @return Page对象
 	 */
-	public Page<T> pageQuery(Page<T> page,LinkedHashMap<String, String> orderby) {
+	public Page<T> pageQuery(Page<T> page, LinkedHashMap<String, String> orderby) {
 		return this.pageQuery(null, page, orderby, false);
 	}
-	
+
 	/**
 	 * 分页查询.
 	 * 
 	 * @param page
 	 *            page对象
-	 *            
+	 * 
 	 * @return Page对象
 	 */
 	public Page<T> pageQuery(Page<T> page) {
 		return this.pageQuery(null, page, null, false);
 	}
-	
-	
-	
+
 }

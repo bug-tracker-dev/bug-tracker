@@ -4,12 +4,9 @@ import org.springframework.stereotype.Repository;
 
 import com.abc.bt.common.dao.GenericDaoHibernateSupport;
 import com.abc.bt.modules.sample.dao.IUserDao;
-import com.abc.bt.modules.sample.model.User;
+import com.abc.bt.modules.sample.entity.User;
 
-@Repository("userDao")
-public class UserDaoImpl extends GenericDaoHibernateSupport<User> implements
-		IUserDao {
-
-	
+@Repository(value = "userDao")
+public class UserDaoImpl extends GenericDaoHibernateSupport<User> implements IUserDao {
 
 }
