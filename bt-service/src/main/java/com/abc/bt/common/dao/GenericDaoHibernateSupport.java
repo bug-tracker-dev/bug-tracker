@@ -2,6 +2,7 @@ package com.abc.bt.common.dao;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,9 +32,16 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	/** 当前Dao所要操作的Bean的class地址. */
 	private Class<T> persistentClass;
 
+	@SuppressWarnings("unchecked")
 	public GenericDaoHibernateSupport() {
-		ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
-		persistentClass = (Class) pt.getActualTypeArguments()[0];
+		
+		Type type = getClass().getGenericSuperclass();
+		
+		if (type instanceof ParameterizedType) {
+			persistentClass = (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[0];
+		} else {
+			throw new RuntimeException("No specific parameterized type set.");
+		}
 	}
 
 	public GenericDaoHibernateSupport(final Class<T> persistentClass) {
