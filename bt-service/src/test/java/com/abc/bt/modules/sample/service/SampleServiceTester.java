@@ -43,4 +43,8 @@ public class SampleServiceTester extends SVCCommonTester {
 	 */
 	@Test public void svcref() {}
 	
+	/**
+	 * Annotaion txn controll
+	 */
+	@Test public void annotationtxn() {}
 }
