@@ -10,6 +10,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Session;
+
 import com.abc.bt.common.model.Page;
 
 /**
@@ -41,7 +43,7 @@ public interface GenericDao<T> {
 	 * @param id
 	 *            实体对象id
 	 */
-	void deleteById(String id);
+	void deleteById(Serializable id);
 
 	/**
 	 * 执行SQL语句获得Set结果,此SQL语句非HQL语句.
@@ -215,5 +217,8 @@ public interface GenericDao<T> {
 	 * @return Page对象
 	 */
 	public Page<T> pageQuery(Page<T> page);
+	
+	
+	public Session getSession();
 
 }
