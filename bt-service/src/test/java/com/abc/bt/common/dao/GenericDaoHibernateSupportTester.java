@@ -10,9 +10,10 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
+import org.hibernate.HibernateException;
 import org.junit.Test;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.abc.bt.common.model.Page;
 import com.abc.bt.common.test.SVCCommonTester;
@@ -41,17 +42,8 @@ public class GenericDaoHibernateSupportTester extends SVCCommonTester {
 			showUser(user);
 		}
 	}
-
-	@Before
-	public void beginTrasaction() {
-		userDao.getSession().beginTransaction();
-	}
-
-	@After
-	public void commitTrasaction() {
-		userDao.getSession().getTransaction().commit();
-	}
-
+	
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class, noRollbackFor=Exception.class )
 	@Test
 	public void save() {
 		User user = new User();
@@ -60,6 +52,7 @@ public class GenericDaoHibernateSupportTester extends SVCCommonTester {
 		userDao.save(user);
 	}
 
+	@Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 	@Test
 	public void findAll() {
 		List<User> users = userDao.findAll();
