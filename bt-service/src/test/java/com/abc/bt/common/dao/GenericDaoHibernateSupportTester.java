@@ -10,7 +10,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
 import org.junit.Test;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +42,7 @@ public class GenericDaoHibernateSupportTester extends SVCCommonTester {
 		}
 	}
 	
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class, noRollbackFor=Exception.class )
+	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class )
 	@Test
 	public void save() {
 		User user = new User();
