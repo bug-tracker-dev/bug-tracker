@@ -12,8 +12,7 @@ import com.abc.bt.common.test.GUICommonTester2;
 
 public class SampleControllerTester2 extends GUICommonTester2 {
 
-	private static final Logger _LOG = Logger
-			.getLogger(SampleControllerTester2.class);
+	private static final Logger _LOG = Logger.getLogger(SampleControllerTester2.class);
 
 	/**
 	 * <li>test case for

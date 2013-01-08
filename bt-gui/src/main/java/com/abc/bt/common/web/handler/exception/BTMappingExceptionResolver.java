@@ -14,8 +14,7 @@ public class BTMappingExceptionResolver extends SimpleMappingExceptionResolver {
 	private Log _LOG = LogFactory.getLog(getClass());
 	
 	@Override
-	protected ModelAndView doResolveException(HttpServletRequest request,
-			HttpServletResponse response, Object handler, Exception ex) {
+	protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 		
 		String accept = request.getHeader("Accept");
 		_LOG.info(accept);
