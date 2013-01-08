@@ -102,9 +102,7 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	 * 
 	 * @return Set集合
 	 */
-	@SuppressWarnings("deprecation")
 	public ResultSet executeQuery(final String sql) throws Exception {
-		ResultSet rs = null;
 		try {
 
 			return this.getSession().doReturningWork(new ReturningWork<ResultSet>() {
@@ -149,8 +147,8 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 		}
 		Query query = this.getSession().createQuery(hql);
 
-		for (int j = 0; i < names.length; i++) {
-			query.setParameter(names[i], values[i]);
+		for (int j = 0; j < names.length; j++) {
+			query.setParameter(names[j], values[j]);
 		}
 		return query.list();
 	}
@@ -178,6 +176,7 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	 *            主键值
 	 * @return 该id实体对象
 	 */
+	@SuppressWarnings("unchecked")
 	public T findById(Serializable idValue) {
 		return (T) this.getSession().get(persistentClass, idValue);
 	}
@@ -241,7 +240,7 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> selectBySqlCondition(String... strings) {
 		String sql = " from " + ClassUtils.getShortName(persistentClass);
-		sql += "where 1 = 1";
+		sql += " where 1 = 1";
 		for (String str : strings) {
 			sql += " and " + str.split("::=")[0] + "=" + str.split("::=")[1];
 		}
