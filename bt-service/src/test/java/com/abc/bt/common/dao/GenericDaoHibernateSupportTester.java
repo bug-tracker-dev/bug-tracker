@@ -25,7 +25,8 @@ import com.abc.bt.modules.sample.entity.User;
  * 
  * @see com.abc.bt.common.dao.GenericDaoHibernateSupport
  * 
- * zhaosen
+ * sam
+ * 
  */
 public class GenericDaoHibernateSupportTester extends SVCCommonTester {
 
