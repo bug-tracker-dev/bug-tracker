@@ -21,9 +21,13 @@ import com.abc.bt.modules.sample.entity.User;
 
 /**
  * the cases in tester should cover all the methods defined in class
+ * 
+ * 
  * GenericDaoHibernateSupport
  * 
  * @see com.abc.bt.common.dao.GenericDaoHibernateSupport
+ * 
+ * zhaosen
  */
 public class GenericDaoHibernateSupportTester extends SVCCommonTester {
 
