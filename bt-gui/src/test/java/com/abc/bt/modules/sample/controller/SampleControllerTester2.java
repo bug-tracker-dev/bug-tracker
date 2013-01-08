@@ -31,19 +31,17 @@ public class SampleControllerTester2 extends GUICommonTester2 {
 		Object o = ra.andReturn().getResponse().getContentAsString();
 		_LOG.info(o);
 
-		ra.andExpect(
-				status().isOk()).andExpect(
-						content().contentType("application/json;charset=UTF-8"))
-				.andExpect(jsonPath("$.prop_1").value(1))
-				.andExpect(jsonPath("$.prop_2").value(2))
-				.andExpect(jsonPath("$.prop_3").value(3))
-				.andExpect(jsonPath("$.prop_4").value(4));
+		ra.andExpect(status().isOk())
+		  .andExpect(content().contentType("application/json;charset=UTF-8"))
+		  .andExpect(jsonPath("$.prop_1").value(1))
+		  .andExpect(jsonPath("$.prop_2").value(2))
+		  .andExpect(jsonPath("$.prop_3").value(3))
+		  .andExpect(jsonPath("$.prop_4").value(4));
 	}
 
 	@Test
 	public void errorjson() throws Exception {
-		ResultActions ra = this.mockMvc.perform(
-				post("/sample/error@handler").accept(MediaType.APPLICATION_JSON));
+		ResultActions ra = this.mockMvc.perform(post("/sample/error@handler").accept(MediaType.APPLICATION_JSON));
 		Object o = ra.andReturn().getResponse().getContentAsString();
 		_LOG.info(o);
 		ra.andExpect(status().isOk());
@@ -51,8 +49,7 @@ public class SampleControllerTester2 extends GUICommonTester2 {
 
 	@Test
 	public void errorxml() throws Exception {
-		ResultActions ra = this.mockMvc.perform(
-				post("/sample/error@handler").accept(MediaType.APPLICATION_XML));
+		ResultActions ra = this.mockMvc.perform(post("/sample/error@handler").accept(MediaType.APPLICATION_XML));
 		Object o = ra.andReturn().getResponse().getContentAsString();
 		_LOG.info(o);
 		ra.andExpect(status().isOk());
@@ -68,8 +65,7 @@ public class SampleControllerTester2 extends GUICommonTester2 {
 
 	@Test
 	public void errorsimpleurljson() throws Exception {
-		ResultActions ra = this.mockMvc.perform(
-				post("/sample/error@handler").accept(MediaType.APPLICATION_JSON));
+		ResultActions ra = this.mockMvc.perform(post("/sample/error@handler").accept(MediaType.APPLICATION_JSON));
 		Object o = ra.andReturn().getResponse().getContentAsString();
 		_LOG.info(o);
 		ra.andExpect(status().isOk());
@@ -77,8 +73,7 @@ public class SampleControllerTester2 extends GUICommonTester2 {
 
 	@Test
 	public void errorsimpleurlxml() throws Exception {
-		ResultActions ra = this.mockMvc.perform(
-				post("/sample/error@handler").accept(MediaType.APPLICATION_XML));
+		ResultActions ra = this.mockMvc.perform(post("/sample/error@handler").accept(MediaType.APPLICATION_XML));
 		Object o = ra.andReturn().getResponse().getContentAsString();
 		_LOG.info(o);
 		ra.andExpect(status().isOk());
