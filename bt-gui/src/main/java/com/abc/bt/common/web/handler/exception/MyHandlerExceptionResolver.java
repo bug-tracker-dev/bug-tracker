@@ -1,4 +1,4 @@
-package com.abc.bt.common.sample.exception;
+package com.abc.bt.common.web.handler.exception;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,14 +17,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class MyHandlerExceptionResolver implements HandlerExceptionResolver {
 
-	private Log log = LogFactory.getLog(getClass());
+	private Log _LOG = LogFactory.getLog(getClass());
 	
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex) {
 
 		// TODO exception not finished yet
-		log.warn("Handle exception: " + ex.getClass().getName());
+		// http://blog.csdn.net/wutbiao/article/details/7454358
+		// read others code,learn
+		_LOG.warn("Handle exception: " + ex.getClass().getName());
         
         Map model = new HashMap();
         model.put("ex class name", ex.getClass().getSimpleName());
@@ -41,6 +43,7 @@ public class MyHandlerExceptionResolver implements HandlerExceptionResolver {
     		writer.print(object.toString());
     	} catch (IOException e) {
     		e.printStackTrace();
+    		// TODO
     	} finally{
     		if(writer != null){
     			writer.close();

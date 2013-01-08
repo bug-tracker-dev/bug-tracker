@@ -37,3 +37,44 @@ function xml() {
 	  }
 	});
 }
+
+===================================================
+function jed() {
+	$.ajax({
+	  url: 'error@handler',
+	  dataType: 'json',
+	  success: function(data) {
+	  	alert(JSON.stringify(data));
+	  }
+	});
+}
+
+function xed() {
+	$.ajax({
+	  url: 'error@handler',
+	  dataType: 'xml',
+	  success: function(data) {
+	  	alert(data);
+	  }
+	});
+}
+
+function jer() {
+	$.ajax({
+	  url: 'errorsimpleurl',
+	  dataType: 'json',
+	  success: function(data) {
+	  	alert(JSON.stringify(data));
+	  }
+	});
+}
+
+function xer() {
+	$.ajax({
+	  url: 'errorsimplerurl',
+	  dataType: 'xml',
+	  success: function(data) {
+	  	alert(data);
+	  }
+	});
+}
