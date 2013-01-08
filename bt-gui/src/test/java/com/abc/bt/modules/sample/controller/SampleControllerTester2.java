@@ -20,96 +20,67 @@ public class SampleControllerTester2 extends GUICommonTester2 {
 	 * {@link com.abc.bt.modules.sample.controller.SampleController#json()} <li>
 	 * about the usage of jsonPath, plz refer to <a
 	 * href="http://goessner.net/articles/JsonPath/">JSONPath</a>
+	 * 
+	 * @throws Exception
 	 */
 	@Test
-	public void json() {
-		try {
+	public void json() throws Exception {
 
-			// write your test code here. in the try|catch block
+		ResultActions ra = this.mockMvc.perform(post("/sample/json").accept(MediaType.APPLICATION_JSON));
 
-			ResultActions ra = this.mockMvc.perform(post("/sample/json")
-					.accept(MediaType.APPLICATION_JSON));
+		Object o = ra.andReturn().getResponse().getContentAsString();
+		_LOG.info(o);
 
-			Object o = ra.andReturn().getResponse().getContentAsString();
-			_LOG.info(o);
-
-			ra.andExpect(status().isOk())
-					.andExpect(
-							content().contentType(
-									"application/json;charset=UTF-8"))
-					.andExpect(jsonPath("$.prop_1").value(1))
-					.andExpect(jsonPath("$.prop_2").value(2))
-					.andExpect(jsonPath("$.prop_3").value(3))
-					.andExpect(jsonPath("$.prop_4").value(4));
-		} catch (Throwable e) {
-			_LOG.error(e.getMessage(), e);
-		}
+		ra.andExpect(
+				status().isOk()).andExpect(
+						content().contentType("application/json;charset=UTF-8"))
+				.andExpect(jsonPath("$.prop_1").value(1))
+				.andExpect(jsonPath("$.prop_2").value(2))
+				.andExpect(jsonPath("$.prop_3").value(3))
+				.andExpect(jsonPath("$.prop_4").value(4));
 	}
 
 	@Test
-	public void errorjson() {
-		try {
-			ResultActions ra = this.mockMvc
-					.perform(post("/sample/error@handler").accept(
-							MediaType.APPLICATION_JSON));
-			Object o = ra.andReturn().getResponse().getContentAsString();
-			_LOG.info(o);
-
-		} catch (Throwable e) {
-			_LOG.error(e.getMessage(), e);
-		}
+	public void errorjson() throws Exception {
+		ResultActions ra = this.mockMvc.perform(
+				post("/sample/error@handler").accept(MediaType.APPLICATION_JSON));
+		Object o = ra.andReturn().getResponse().getContentAsString();
+		_LOG.info(o);
+		ra.andExpect(status().isOk());
 	}
 
 	@Test
-	public void errorxml() {
-		try {
-			ResultActions ra = this.mockMvc.perform(post(
-					"/sample/error@handler").accept(MediaType.APPLICATION_XML));
-			Object o = ra.andReturn().getResponse().getContentAsString();
-			_LOG.info(o);
-
-		} catch (Throwable e) {
-			_LOG.error(e.getMessage(), e);
-		}
+	public void errorxml() throws Exception {
+		ResultActions ra = this.mockMvc.perform(
+				post("/sample/error@handler").accept(MediaType.APPLICATION_XML));
+		Object o = ra.andReturn().getResponse().getContentAsString();
+		_LOG.info(o);
+		ra.andExpect(status().isOk());
 	}
 
 	@Test
-	public void errordefault() {
-		try {
-			ResultActions ra = this.mockMvc
-					.perform(post("/sample/errordefault"));
-			Object o = ra.andReturn().getResponse().getContentAsString();
-			_LOG.info(o);
-
-		} catch (Throwable e) {
-			_LOG.error(e.getMessage(), e);
-		}
+	public void errordefault() throws Exception {
+		ResultActions ra = this.mockMvc.perform(post("/sample/errordefault"));
+		Object o = ra.andReturn().getResponse().getContentAsString();
+		_LOG.info(o);
+		ra.andExpect(status().isOk());
 	}
 
 	@Test
-	public void errorsimpleurljson() {
-		try {
-			ResultActions ra = this.mockMvc
-					.perform(post("/sample/error@handler").accept(
-							MediaType.APPLICATION_JSON));
-			Object o = ra.andReturn().getResponse().getContentAsString();
-			_LOG.info(o);
-
-		} catch (Throwable e) {
-			_LOG.error(e.getMessage(), e);
-		}
+	public void errorsimpleurljson() throws Exception {
+		ResultActions ra = this.mockMvc.perform(
+				post("/sample/error@handler").accept(MediaType.APPLICATION_JSON));
+		Object o = ra.andReturn().getResponse().getContentAsString();
+		_LOG.info(o);
+		ra.andExpect(status().isOk());
 	}
 
 	@Test
-	public void errorsimpleurlxml() {
-		try {
-			ResultActions ra = this.mockMvc.perform(post(
-					"/sample/error@handler").accept(MediaType.APPLICATION_XML));
-			Object o = ra.andReturn().getResponse().getContentAsString();
-			_LOG.info(o);
-
-		} catch (Throwable e) {
-			_LOG.error(e.getMessage(), e);
-		}
+	public void errorsimpleurlxml() throws Exception {
+		ResultActions ra = this.mockMvc.perform(
+				post("/sample/error@handler").accept(MediaType.APPLICATION_XML));
+		Object o = ra.andReturn().getResponse().getContentAsString();
+		_LOG.info(o);
+		ra.andExpect(status().isOk());
 	}
 }

@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+
+"src/main/resources/conf/dispatcher-servlet.xml"<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
@@ -18,8 +21,10 @@
 	<bean id="jaxb2XMLMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
 		<property name="classesToBeBound">
 			<array>
-				<value>com.abc.bt.modules.sample.model.ComplexForm</value>
-				<value>com.abc.bt.common.web.model.exception.ExceptionM</value>
+				<value>com.abc.bt.modules.sample.model.ComplexForm
+				</value>
+				<value>com.abc.bt.common.web.model.exception.ExceptionM
+				</value>
 			</array>
 		</property>
 	</bean>
@@ -28,33 +33,27 @@
 	<!-- message converters -->
 	<util:list id="messageConverters">
 		<!-- For JSON Converting -->
-		<bean
-			class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+		<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
 		<!-- For XML Converting -->
-		<bean
-			class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+		<bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
 			<property name="marshaller" ref="jaxb2XMLMarshaller" />
 		</bean>
 	</util:list>
 
 
 	<!-- request mapping handler mapping -->
-	<bean id="requestMappingHandlerMapping"
-		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
+	<bean id="requestMappingHandlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
 
 	<!-- request mapping handler adapter -->
-	<bean id="requestMappingHandlerAdapter"
-		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-		<!-- set prop messageConverters to avoid org.springframework.web.HttpMediaTypeNotAcceptableException: 
-			Could not find acceptable representation in JUnit -->
+	<bean id="requestMappingHandlerAdapter" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<!-- set prop messageConverters to avoid org.springframework.web.HttpMediaTypeNotAcceptableException: Could not find acceptable 
+			representation in JUnit -->
 		<property name="messageConverters">
 			<list>
 				<!-- For JSON Converting -->
-				<bean
-					class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
 				<!-- For XML Converting -->
-				<bean
-					class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+				<bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
 					<property name="marshaller" ref="jaxb2XMLMarshaller" />
 				</bean>
 			</list>
@@ -62,17 +61,19 @@
 	</bean>
 
 	<!-- content neotiating view resolver, a delegate over the accept header -->
-	<bean id="contentNegotiatingViewResolver"
-		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+	<bean id="contentNegotiatingViewResolver" class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="contentNegotiationManager">
-			<bean
-				class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+			<bean class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
 				<property name="mediaTypes">
 					<props>
-						<prop key="atom">application/atom+xml</prop>
-						<prop key="xml">application/xml</prop>
-						<prop key="html">text/html</prop>
-						<prop key="json">application/json</prop>
+						<prop key="atom">application/atom+xml
+						</prop>
+						<prop key="xml">application/xml
+						</prop>
+						<prop key="html">text/html
+						</prop>
+						<prop key="json">application/json
+						</prop>
 					</props>
 				</property>
 			</bean>
@@ -81,10 +82,8 @@
 		<property name="viewResolvers">
 			<list>
 				<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />
-				<bean
-					class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-					<property name="viewClass"
-						value="org.springframework.web.servlet.view.JstlView" />
+				<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 					<property name="prefix" value="/WEB-INF/jsp/" />
 					<property name="suffix" value=".jsp" />
 				</bean>
@@ -94,40 +93,34 @@
 
 	<!-- FILE UPLOAD -->
 	<!-- multipart resolver over commons fileupload -->
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- one of the properties available; the maximum file size in bytes -->
 		<property name="maxUploadSize" value="100000" />
 	</bean>
 
 
 	<!-- JSON & XML view -->
-	<bean name="json-view"
-		class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
-	<bean name="xml-view"
-		class="org.springframework.web.servlet.view.xml.MarshallingView">
+	<bean name="json-view" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+	<bean name="xml-view" class="org.springframework.web.servlet.view.xml.MarshallingView">
 		<property name="marshaller" ref="jaxb2XMLMarshaller" />
 	</bean>
 
 	<!-- change ur comment into English -->
 	<!-- GLOBAL EXCEPTION -->
-	<bean id="compositeExceptionResolver"
-		class="org.springframework.web.servlet.handler.HandlerExceptionResolverComposite">
+	<bean id="compositeExceptionResolver" class="org.springframework.web.servlet.handler.HandlerExceptionResolverComposite">
 		<property name="exceptionResolvers">
 			<list>
 				<!-- for @ExceptionHandler -->
-				<bean
-					class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver">
+				<bean class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver">
 					<property name="messageConverters" ref="messageConverters" />
 				</bean>
 
-				<!-- for Default web exception handler @see org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver..doResolveException -->
-				<bean
-					class="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver" />
+				<!-- for Default web exception handler
+				 @see org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver..doResolveException -->
+				<bean class="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver" />
 
 				<!-- for custom exception handler -->
-				<bean
-					class="com.abc.bt.common.web.handler.exception.BTMappingExceptionResolver">
+				<bean class="com.abc.bt.common.web.handler.exception.BTMappingExceptionResolver">
 					<property name="exceptionMappings">
 						<props>
 							<prop key="java.lang.NullPointerException">error</prop>
