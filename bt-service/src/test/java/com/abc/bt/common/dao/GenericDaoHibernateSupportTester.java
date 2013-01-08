@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,14 +23,11 @@ import com.abc.bt.modules.sample.entity.User;
 
 /**
  * the cases in tester should cover all the methods defined in class
- * 
- * 
  * GenericDaoHibernateSupport
  * 
  * @see com.abc.bt.common.dao.GenericDaoHibernateSupport
- * 
- * zhaosen
  */
+@Transactional(readOnly=true)
 public class GenericDaoHibernateSupportTester extends SVCCommonTester {
 
 	@Resource(name = "userDao")
@@ -37,7 +36,9 @@ public class GenericDaoHibernateSupportTester extends SVCCommonTester {
 	private static final Logger _LOG = Logger.getLogger(GenericDaoHibernateSupportTester.class);
 
 	private void showUser(User user) {
-		_LOG.info("id:" + user.getId() + "  username:" + user.getUsername());
+		if(null!=user){
+			_LOG.info("id:" + user.getId() + "  username:" + user.getUsername());
+		}
 	}
 
 	private void showUsers(Collection<User> users) {
@@ -45,9 +46,9 @@ public class GenericDaoHibernateSupportTester extends SVCCommonTester {
 			showUser(user);
 		}
 	}
-	
-	@Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class )
+
 	@Test
+	@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=false)
 	public void save() {
 		User user = new User();
 		user.setId(100001L);
@@ -63,19 +64,16 @@ public class GenericDaoHibernateSupportTester extends SVCCommonTester {
 	}
 
 	@Test
+	@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=false)
 	public void delete() {
-		save();
-		_LOG.info("------------删除前-------------");
-		findAll();
 		User user = new User();
 		user.setId(100001L);
 		user.setUsername("Tom");
 		userDao.delete(user);
-		_LOG.info("------------删除后-------------");
-		findAll();
 	}
 
 	@Test
+	@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=false)
 	public void update() {
 		User user = new User();
 		user.setId(100001L);
@@ -84,13 +82,10 @@ public class GenericDaoHibernateSupportTester extends SVCCommonTester {
 	}
 
 	@Test
+	@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=false)
 	public void deleteById() {
 		save();
-		_LOG.info("------------删除前-------------");
-		findAll();
-		userDao.deleteById(10001L);
-		_LOG.info("------------删除后-------------");
-		findAll();
+		userDao.deleteById(100001L);
 	}
 
 	@Test
@@ -139,6 +134,7 @@ public class GenericDaoHibernateSupportTester extends SVCCommonTester {
 	}
 
 	@Test
+	@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=false)
 	public void saveAll() {
 		List<User> users = new ArrayList<User>();
 		for (int i = 0; i < 10; i++) {
@@ -151,6 +147,7 @@ public class GenericDaoHibernateSupportTester extends SVCCommonTester {
 	}
 
 	@Test
+	@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=false)
 	public void deleteAll() {
 		List<User> users = new ArrayList<User>();
 		for (int i = 0; i < 10; i++) {
@@ -164,13 +161,13 @@ public class GenericDaoHibernateSupportTester extends SVCCommonTester {
 
 	@Test
 	public void selectBySqlCondition() {
-		List<User> users = userDao.selectBySqlCondition("id::==10001", "username::=='Tom'");
+		List<User> users = userDao.selectBySqlCondition("id::=10001", "username::='Tom'");
 		showUsers(users);
 	}
 
 	@Test
 	public void selectBySqlConditionOr() {
-		List<User> users = userDao.selectBySqlConditionOr("username::=='Tom'", "username::=='Jim0'");
+		List<User> users = userDao.selectBySqlConditionOr("username::='Tom'", "username::='Jim0'");
 		showUsers(users);
 	}
 	
@@ -182,6 +179,70 @@ public class GenericDaoHibernateSupportTester extends SVCCommonTester {
 		page = userDao.pageQuery(page);
 		_LOG.info("current page:"+page.getCurrentPage()+"   page size:"+page.getPageSize());
 		showUsers(page.getResult());
+	}
+	
+	@Test
+	public void pageQueryOverLoad1(){
+		Page<User> page = new Page<User>();
+		page.setCurrentPage(1);
+		page.setPageSize(5);
+		Map<String,Object> conditionMap=new HashMap<String,Object>();
+		conditionMap.put("username", "tom");
+		page = userDao.pageQuery(conditionMap, page);
+		_LOG.info("current page:"+page.getCurrentPage()+"   page size:"+page.getPageSize());
+		showUsers(page.getResult());	
+	}
+	
+	@Test
+	public void pageQueryOverLoad2(){
+		Page<User> page = new Page<User>();
+		page.setCurrentPage(1);
+		page.setPageSize(5);
+		LinkedHashMap<String,String> orderBy=new LinkedHashMap<String,String>();
+		orderBy.put("id", "desc");
+		page = userDao.pageQuery(page, orderBy);
+		_LOG.info("current page:"+page.getCurrentPage()+"   page size:"+page.getPageSize());
+		showUsers(page.getResult());	
+	}
+	
+	@Test
+	public void pageQueryOverLoad3(){
+		Page<User> page = new Page<User>();
+		page.setCurrentPage(1);
+		page.setPageSize(5);
+		LinkedHashMap<String,String> orderby=new LinkedHashMap<String,String>();
+		orderby.put("id", "desc");
+		Map<String,Object> conditionMap=new HashMap<String,Object>();
+		conditionMap.put("username", "tom");
+		page = userDao.pageQuery(conditionMap, page, orderby);
+		_LOG.info("current page:"+page.getCurrentPage()+"   page size:"+page.getPageSize());
+		showUsers(page.getResult());	
+	}
+	
+	@Test
+	public void pageQueryOverLoad4(){
+		Page<User> page = new Page<User>();
+		page.setCurrentPage(1);
+		page.setPageSize(5);
+		Map<String,Object> conditionMap=new HashMap<String,Object>();
+		conditionMap.put("username", "tom");
+		page = userDao.pageQuery(conditionMap, page, true);
+		_LOG.info("current page:"+page.getCurrentPage()+"   page size:"+page.getPageSize());
+		showUsers(page.getResult());	
+	}
+	
+	@Test
+	public void pageQueryOverLoad5(){
+		Page<User> page = new Page<User>();
+		page.setCurrentPage(1);
+		page.setPageSize(5);
+		Map<String,Object> conditionMap=new HashMap<String,Object>();
+		conditionMap.put("username", "tom");
+		LinkedHashMap<String,String> orderby=new LinkedHashMap<String,String>();
+		orderby.put("id", "desc");
+		page = userDao.pageQuery(conditionMap, page, orderby, true);
+		_LOG.info("current page:"+page.getCurrentPage()+"   page size:"+page.getPageSize());
+		showUsers(page.getResult());	
 	}
 
 }
