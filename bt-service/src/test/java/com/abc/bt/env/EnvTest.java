@@ -55,9 +55,9 @@ public class EnvTest {
 			User u2 = new User();
 			u2.setId(456233L);
 			u2.setUsername("cba");
-			userService.save(u1);
+			userService.saveUser(u1);
 
-			userService.saveUserError(u2);
+			userService.saveUserAndRollback(u2);
 		} catch (Exception e) {
 			List<User> list = userService.findAll();
 
@@ -71,7 +71,7 @@ public class EnvTest {
 		User u1 = new User();
 		u1.setId(100001L);
 		u1.setUsername("abc");
-		userService.save(u1);
+		userService.saveUser(u1);
 		List<User> list = userService.findAll();
 		System.out.println(list.get(0).getUsername());
 	}
@@ -81,12 +81,12 @@ public class EnvTest {
 		User u1 = new User();
 		u1.setId(100002L);
 		u1.setUsername("abc");
-		userService.save(u1);
+		userService.saveUser(u1);
 		List<User> list = userService.findAll();
 		System.out.println(list.get(0).getUsername());
 
 		u1.setUsername("efg");
-		userService.update(u1);
+		userService.updateUser(u1);
 		list = userService.findAll();
 		for (User user : list) {
 			System.out.println("编号：" + user.getId() + "    ------     姓名：" + user.getUsername());
@@ -99,7 +99,7 @@ public class EnvTest {
 			User u1 = new User();
 			u1.setId(200001L + i);
 			u1.setUsername("abc" + i);
-			userService.save(u1);
+			userService.saveUser(u1);
 		}
 
 		Page<User> page = new Page<User>();
