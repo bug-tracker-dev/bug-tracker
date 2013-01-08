@@ -28,7 +28,7 @@ import com.abc.bt.modules.sample.entity.User;
  * @see com.abc.bt.common.dao.GenericDaoHibernateSupport
  * 
  * sam
- * 
+ * zhaosen
  * 
  */
 @Transactional(readOnly=true)
