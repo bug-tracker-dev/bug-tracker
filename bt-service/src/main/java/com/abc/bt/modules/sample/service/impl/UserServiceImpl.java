@@ -21,20 +21,42 @@ public class UserServiceImpl implements IUserService {
 		return userDao.findAll();
 	}
 
-	public void saveUserError(User user) {
+	public void saveUserAndRollback(User user) {
 		userDao.save(user);
-		throw new RuntimeException("出错了");
+		throw new RuntimeException("回滚吧!");
 		// int i=1/0;
 	}
 
-	public void save(User user) {
+	public void saveUser(User user) {
 		userDao.save(user);
 	}
 
-	public void update(User user) {
+	public void updateUser(User user) {
 		userDao.update(user);
 	}
+	
+	public void updateUserAndRollback(User user){
+		userDao.update(user);
+		throw new RuntimeException("回滚吧!");
+	}
 
+	public void removeUser(User user){
+		userDao.delete(user);
+	}
+	
+	public void removeUserAndRollback(User user){
+		userDao.delete(user);
+		throw new RuntimeException("回滚吧!");
+	}
+	
+	public User getUserByID(Long id){
+		return userDao.findById(id);
+	}
+	
+	public List<User> loadUsersByUserName(String username){
+		return userDao.findAllByProperty("username", username);
+	}
+	
 	public Page<User> findUserByPage(Page<User> page) {
 		return userDao.pageQuery(page);
 	}

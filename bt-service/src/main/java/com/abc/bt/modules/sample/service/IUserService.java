@@ -14,11 +14,21 @@ public interface IUserService {
 	 */
 	List<User> findAll();
 
-	void save(User user);
+	void saveUser(User user);
 
-	public void saveUserError(User user);
+	public void saveUserAndRollback(User user);
 
-	public void update(User user);
+	public void updateUser(User user);
+	
+	public void updateUserAndRollback(User user);
+	
+	public void removeUser(User user);
+	
+	public void removeUserAndRollback(User user);
+	
+	public User getUserByID(Long id);
 
+	public List<User> loadUsersByUserName(String username);
+	
 	public Page<User> findUserByPage(Page<User> page);
 }
