@@ -8,7 +8,9 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import com.abc.bt.common.model.Page;
 import com.abc.bt.common.test.SVCCommonTester;
+import com.abc.bt.modules.sample.entity.Book;
 import com.abc.bt.modules.sample.entity.User;
 
 public class SampleServiceTester extends SVCCommonTester {
@@ -81,12 +83,86 @@ public class SampleServiceTester extends SVCCommonTester {
 		userService.removeUserAndRollback(user);
 	}
 	
+	@Test
+	public void update() {
+		save();
+		User user=new User();
+		user.setId(100001L);
+		user.setUsername("Jim");
+		userService.updateUser(user);
+	}
+	
+	@Test
+	public void updateAndRollBack() {
+		save();
+		User user=new User();
+		user.setId(100001L);
+		user.setUsername("Jim");
+		userService.updateUserAndRollback(user);
+	}
+	
+	@Test
+	public void get() {
+		save();
+		User user=userService.getUserByID(100001L);
+		showUser(user);
+	}
+	
+	@Test
+	public void load() {
+		save();
+		List<User> users = userService.loadUsersByUserName("Tom");
+		showUsers(users);
+	}
+	
+	@Test 
+	public void exist() {
+		save();
+		boolean flag=userService.existUserName("Tom");
+		_LOG.info(" FLAG:"+flag);
+		
+	}
+	
+	@Test 
+	public void abc() {
+		for (int i = 0; i < 20; i++) {
+			User u1 = new User();
+			u1.setId(200001L + i);
+			u1.setUsername("abc" + i);
+			userService.saveUser(u1);
+		}
+
+		Page<User> page = new Page<User>();
+		page.setCurrentPage(1);
+		page.setPageSize(5);
+
+		page = userService.findUserByPage(page);
+
+		showUsers(page.getResult());
+		
+		page.setCurrentPage(3);
+		page.setPageSize(5);
+
+		page = userService.findUserByPage(page);
+
+		showUsers(page.getResult());
+		
+	}
 	
 	
 	/**
 	 * multi- Data operations in 1 txn
 	 */
-	@Test public void mulitdo() {}
+	@Test 
+	public void mulitdo() {
+		User user=new User();
+		user.setId(10001L);
+		user.setUsername("Tom");
+		Book book=new Book();
+		book.setId(1000001L);
+		book.setBookname("java");
+		userService.saveUserAndBook(user, book);
+	}
 	
 	/**
 	 * multi-thread operate the same data via lock
@@ -96,10 +172,29 @@ public class SampleServiceTester extends SVCCommonTester {
 	/**
 	 * BSvc referenced in ASvc
 	 */
-	@Test public void svcref() {}
+	@Test
+	public void svcref() {
+		User user=new User();
+		user.setId(10001L);
+		user.setUsername("Tom");
+		Book book1=new Book();
+		book1.setId(1000001L);
+		book1.setBookname("java");
+		Book book2=new Book();
+		book2.setId(1000002L);
+		book2.setBookname("javaEE");
+		//userService.saveUserAndBook(user,book1);
+		userService.saveUserAndBooksAndRollback(user, book1, book2);
+	}
 	
 	/**
 	 * Annotaion txn controll
 	 */
-	@Test public void annotationtxn() {}
+	@Test 
+	public void annotationtxn() {
+		User user=new User();
+		user.setId(10001L);
+		user.setUsername("Tom");
+		userService.insertUser(user);
+	}
 }

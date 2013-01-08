@@ -3,6 +3,7 @@ package com.abc.bt.modules.sample.service;
 import java.util.List;
 
 import com.abc.bt.common.model.Page;
+import com.abc.bt.modules.sample.entity.Book;
 import com.abc.bt.modules.sample.entity.User;
 
 public interface IUserService {
@@ -30,5 +31,13 @@ public interface IUserService {
 
 	public List<User> loadUsersByUserName(String username);
 	
+	public boolean existUserName(String username);
+	
 	public Page<User> findUserByPage(Page<User> page);
+	
+	public void saveUserAndBooksAndRollback(User user,Book book1, Book book2);
+	
+	public void saveUserAndBook(User user,Book book);
+	
+	public void insertUser(User user);
 }
