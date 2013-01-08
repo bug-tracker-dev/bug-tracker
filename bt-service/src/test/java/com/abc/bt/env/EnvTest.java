@@ -9,7 +9,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,7 +20,7 @@ import com.abc.bt.modules.sample.service.IUserService;
 @ContextConfiguration(value = "classpath*:conf/applicationContext-*.xml")
 public class EnvTest {
 
-	@Autowired
+	@Resource(name="sessionFactory")
 	private SessionFactory sessionFactory;
 
 	@Resource(name = "userService")
@@ -80,7 +79,7 @@ public class EnvTest {
 	@Test
 	public void testUpdateUser() {
 		User u1 = new User();
-		u1.setId(100001L);
+		u1.setId(100002L);
 		u1.setUsername("abc");
 		userService.save(u1);
 		List<User> list = userService.findAll();
@@ -98,7 +97,7 @@ public class EnvTest {
 	public void testfindUserByPage() {
 		for (int i = 0; i < 20; i++) {
 			User u1 = new User();
-			u1.setId(100001L + i);
+			u1.setId(200001L + i);
 			u1.setUsername("abc" + i);
 			userService.save(u1);
 		}

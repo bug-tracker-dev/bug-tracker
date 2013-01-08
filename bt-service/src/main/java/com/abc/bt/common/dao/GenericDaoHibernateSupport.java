@@ -48,8 +48,12 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 		this.persistentClass = persistentClass;
 	}
 
-	protected Session getSession() {
+	public Session getSession() {
 		return sessionFactory.getCurrentSession();
+		/*if(null==session){
+			session=sessionFactory.openSession();
+		}
+		return session;*/
 	}
 
 	/**
@@ -82,7 +86,7 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	 * @param id
 	 *            实体对象的id
 	 */
-	public void deleteById(String id) {
+	public void deleteById(Serializable id) {
 		T o = this.findById(id);
 		if (null == o) {
 			throw new HibernateException("This Object by id is " + id + " does not exist");
