@@ -1,6 +1,11 @@
 package com.abc.bt.modules.sample.service;
 
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.abc.bt.common.model.Page;
 import com.abc.bt.modules.sample.entity.Book;
@@ -39,5 +44,9 @@ public interface IUserService {
 	
 	public void saveUserAndBook(User user,Book book);
 	
-	public void insertUser(User user);
+	@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, readOnly = false, noRollbackFor = RuntimeException.class, rollbackFor=Exception.class)
+	public void abcUser(User user);
+	
+	public void saveUsers(Collection<User> users);
+	
 }

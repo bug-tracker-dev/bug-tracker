@@ -1,5 +1,6 @@
 package com.abc.bt.modules.sample.service.impl;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -102,8 +103,13 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=false)
-	public void insertUser(User user) {
+	public void abcUser(User user) {
 		userDao.save(user);
 	}
+
+	@Override
+	public void saveUsers(Collection<User> users) {
+		userDao.saveAll(users);
+	}
+
 }

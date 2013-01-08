@@ -15,6 +15,9 @@
 		<property name="password" value="${jdbc.password}" />
 	</bean> -->
 	
-	<jdbc:embedded-database id="dataSource" type="HSQL" />
+	<jdbc:embedded-database id="dataSource" type="HSQL">
+		<jdbc:script location="classpath:db/scheme.sql"/>
+		<jdbc:script location="classpath:db/data.sql"/>
+	</jdbc:embedded-database>
 	
 </beans>

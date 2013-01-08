@@ -1,8 +1,11 @@
 package com.abc.bt.env;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+
+import net.sf.json.JSONArray;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -13,7 +16,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.abc.bt.common.model.Page;
+import com.abc.bt.modules.sample.entity.Book;
 import com.abc.bt.modules.sample.entity.User;
+import com.abc.bt.modules.sample.service.IBookService;
 import com.abc.bt.modules.sample.service.IUserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,6 +31,7 @@ public class EnvTest {
 	@Resource(name = "userService")
 	private IUserService userService;
 
+	@SuppressWarnings({ "unchecked", "unused" })
 	@Test
 	public void test() {
 		Session session = sessionFactory.openSession(); // not part of a
@@ -120,5 +126,41 @@ public class EnvTest {
 		for (User user : page.getResult()) {
 			System.out.println("编号：" + user.getId() + "    ------     姓名：" + user.getUsername());
 		}
+	}
+	
+	@Resource(name="bookService")
+	private IBookService bookService; 
+	
+	List<User> users = new ArrayList<User>();
+	List<Book> books = new ArrayList<Book>();
+	
+	@Test
+	public void insertdata() {
+		User u = null;
+		Book b = null;
+		for (int i = 1; i < 6; i++) {
+			u = new User();
+			u.setId(90000 + i);
+			u.setUsername("User_" + i);
+			users.add(u);
+
+			b = new Book();
+			b.setId(90000 + i);
+			b.setBookname("Book_" + i);
+			books.add(b);
+		}
+		
+		userService.saveUsers(users);
+		bookService.saveBooks(books);
+	}
+	
+	@Test
+	public void loaddata() {
+		
+		List<User> users = userService.findAll();
+		List<Book> books = bookService.findAll();
+		
+		System.out.println(JSONArray.fromObject(users));
+		System.out.println(JSONArray.fromObject(books));
 	}
 }
