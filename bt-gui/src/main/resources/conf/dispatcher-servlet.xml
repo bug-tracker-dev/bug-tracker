@@ -1,5 +1,4 @@
-
-"src/main/resources/conf/dispatcher-servlet.xml"<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:p="http://www.springframework.org/schema/p" 
@@ -21,10 +20,8 @@
 	<bean id="jaxb2XMLMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
 		<property name="classesToBeBound">
 			<array>
-				<value>com.abc.bt.modules.sample.model.ComplexForm
-				</value>
-				<value>com.abc.bt.common.web.model.exception.ExceptionM
-				</value>
+				<value>com.abc.bt.modules.sample.model.ComplexForm</value>
+				<value>com.abc.bt.common.web.model.exception.ExceptionM</value>
 			</array>
 		</property>
 	</bean>
@@ -66,14 +63,10 @@
 			<bean class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
 				<property name="mediaTypes">
 					<props>
-						<prop key="atom">application/atom+xml
-						</prop>
-						<prop key="xml">application/xml
-						</prop>
-						<prop key="html">text/html
-						</prop>
-						<prop key="json">application/json
-						</prop>
+						<prop key="atom">application/atom+xml</prop>
+						<prop key="xml">application/xml</prop>
+						<prop key="html">text/html</prop>
+						<prop key="json">application/json</prop>
 					</props>
 				</property>
 			</bean>
