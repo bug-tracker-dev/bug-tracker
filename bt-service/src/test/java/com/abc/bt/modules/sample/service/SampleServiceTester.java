@@ -1,12 +1,39 @@
 package com.abc.bt.modules.sample.service;
 
+import java.util.Collection;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import com.abc.bt.common.test.SVCCommonTester;
+import com.abc.bt.modules.sample.entity.User;
 
 public class SampleServiceTester extends SVCCommonTester {
 
 	// TODO define 2 svc: ASvc and BSvc
+	
+	@Resource(name="userService")
+	private IUserService userService; 
+	
+	private static final Logger _LOG = Logger.getLogger(SampleServiceTester.class);
+
+	
+	private void showUser(User user) {
+		if(null!=user){
+			_LOG.info("id:" + user.getId() + "  username:" + user.getUsername());
+		}
+	}
+
+	private void showUsers(Collection<User> users) {
+		for (User user : users) {
+			showUser(user);
+		}
+	}
+
+	
 	// TODO 
 	
 	/**
@@ -20,13 +47,41 @@ public class SampleServiceTester extends SVCCommonTester {
 		<tx:method name="exist*" propagation="REQUIRED" />
 		<tx:method name="*" read-only="true" />
 	 */
-	@Test public void save() {}
-	@Test public void remove() {}
-	@Test public void update() {}
-	@Test public void get() {}
-	@Test public void load() {}
-	@Test public void exist() {}
-	@Test public void abc() {}
+	@Test
+	public void save() {
+		User user=new User();
+		user.setId(100001L);
+		user.setUsername("Tom");
+		userService.saveUser(user);
+	}
+	
+	@Test
+	public void saveRollback() {
+		User user=new User();
+		user.setId(100001L);
+		user.setUsername("Tom");
+		userService.saveUserAndRollback(user);
+	}
+	
+	@Test
+	public void remove() {
+		save();
+		User user=new User();
+		user.setId(100001L);
+		user.setUsername("Tom");
+		userService.removeUser(user);
+	}
+	
+	@Test
+	public void removeRollback() {
+		save();
+		User user=new User();
+		user.setId(100001L);
+		user.setUsername("Tom");
+		userService.removeUserAndRollback(user);
+	}
+	
+	
 	
 	/**
 	 * multi- Data operations in 1 txn
