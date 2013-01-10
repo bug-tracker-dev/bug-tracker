@@ -103,8 +103,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=false)
-	public void insertUser(User user) {
+	public void abcUser(User user) {
 		userDao.save(user);
 	}
 

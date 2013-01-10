@@ -1,9 +1,9 @@
 package com.abc.bt.modules.sample.service;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
+
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -14,26 +14,14 @@ import com.abc.bt.modules.sample.entity.Book;
 import com.abc.bt.modules.sample.entity.User;
 
 public class SampleServiceTester extends SVCCommonTester {
+	
+	
+	private static final Logger _LOG = Logger.getLogger(SampleServiceTester.class);
 
 	// TODO define 2 svc: ASvc and BSvc
 	
 	@Resource(name="userService")
 	private IUserService userService; 
-	
-	private static final Logger _LOG = Logger.getLogger(SampleServiceTester.class);
-
-	
-	private void showUser(User user) {
-		if(null!=user){
-			_LOG.info("id:" + user.getId() + "  username:" + user.getUsername());
-		}
-	}
-
-	private void showUsers(Collection<User> users) {
-		for (User user : users) {
-			showUser(user);
-		}
-	}
 
 	
 	// TODO 
@@ -67,10 +55,8 @@ public class SampleServiceTester extends SVCCommonTester {
 	
 	@Test
 	public void remove() {
-		save();
 		User user=new User();
-		user.setId(100001L);
-		user.setUsername("Tom");
+		user.setId(8000001L);
 		userService.removeUser(user);
 	}
 	
@@ -105,22 +91,21 @@ public class SampleServiceTester extends SVCCommonTester {
 	public void get() {
 		save();
 		User user=userService.getUserByID(100001L);
-		showUser(user);
+		trace(user);
 	}
 	
 	@Test
 	public void load() {
 		save();
 		List<User> users = userService.loadUsersByUserName("Tom");
-		showUsers(users);
+		trace(users);
 	}
 	
 	@Test 
 	public void exist() {
-		save();
+		//save();
 		boolean flag=userService.existUserName("Tom");
-		_LOG.info(" FLAG:"+flag);
-		
+		_LOG.info("Flag = " + flag);
 	}
 	
 	@Test 
@@ -138,14 +123,14 @@ public class SampleServiceTester extends SVCCommonTester {
 
 		page = userService.findUserByPage(page);
 
-		showUsers(page.getResult());
+		trace(page.getResult());
 		
 		page.setCurrentPage(3);
 		page.setPageSize(5);
 
 		page = userService.findUserByPage(page);
 
-		showUsers(page.getResult());
+		trace(page.getResult());
 		
 	}
 	
@@ -195,6 +180,9 @@ public class SampleServiceTester extends SVCCommonTester {
 		User user=new User();
 		user.setId(10001L);
 		user.setUsername("Tom");
-		userService.insertUser(user);
+		userService.abcUser(user);
+		
+		trace(userService.loadUsersByUserName("Tom"));
+		
 	}
 }

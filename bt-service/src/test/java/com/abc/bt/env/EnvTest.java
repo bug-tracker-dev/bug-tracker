@@ -6,7 +6,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -32,6 +31,7 @@ public class EnvTest {
 	@Resource(name = "userService")
 	private IUserService userService;
 
+	@SuppressWarnings({ "unchecked", "unused" })
 	@Test
 	public void test() {
 		Session session = sessionFactory.openSession(); // not part of a
