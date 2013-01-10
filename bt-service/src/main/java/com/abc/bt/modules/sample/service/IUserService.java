@@ -1,5 +1,6 @@
 package com.abc.bt.modules.sample.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.abc.bt.common.model.Page;
@@ -40,4 +41,7 @@ public interface IUserService {
 	public void saveUserAndBook(User user,Book book);
 	
 	public void insertUser(User user);
+	
+	public void saveUsers(Collection<User> users);
+	
 }

@@ -1,5 +1,6 @@
 package com.abc.bt.modules.sample.service.impl;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -106,4 +107,10 @@ public class UserServiceImpl implements IUserService {
 	public void insertUser(User user) {
 		userDao.save(user);
 	}
+
+	@Override
+	public void saveUsers(Collection<User> users) {
+		userDao.saveAll(users);
+	}
+
 }

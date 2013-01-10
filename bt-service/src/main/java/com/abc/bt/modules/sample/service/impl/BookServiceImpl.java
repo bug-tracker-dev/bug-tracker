@@ -1,5 +1,8 @@
 package com.abc.bt.modules.sample.service.impl;
 
+import java.util.Collection;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -23,6 +26,17 @@ public class BookServiceImpl implements IBookService{
 	public void saveBookAndRollBack(Book book) {
 		bookDao.save(book);
 		throw new RuntimeException("回滚吧！");
+	}
+
+	@Override
+	public void saveBooks(Collection<Book> books) {
+		bookDao.saveAll(books);
+	}
+
+	@Override
+	public List<Book> findAll() {
+		// TODO Auto-generated method stub
+		return bookDao.findAll();
 	}
 
 }
