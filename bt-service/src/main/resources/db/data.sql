@@ -1,0 +1,11 @@
+insert into T_User (username, id) values ('U_1', 7000001)
+insert into T_User (username, id) values ('U_2', 7000002)
+insert into T_User (username, id) values ('U_3', 7000003)
+insert into T_User (username, id) values ('U_4', 7000004)
+insert into T_User (username, id) values ('U_5', 7000005)
+
+insert into T_Book (bookname, id) values ('B_1', 7000001)
+insert into T_Book (bookname, id) values ('B_2', 7000002)
+insert into T_Book (bookname, id) values ('B_3', 7000003)
+insert into T_Book (bookname, id) values ('B_4', 7000004)
+insert into T_Book (bookname, id) values ('B_5', 7000005)
