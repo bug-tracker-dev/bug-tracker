@@ -245,5 +245,13 @@ public class GenericDaoHibernateSupportTester extends SVCCommonTester {
 		_LOG.info("current page:"+page.getCurrentPage()+"   page size:"+page.getPageSize());
 		showUsers(page.getResult());	
 	}
+	
+	@Test
+	public void loadById(){
+		//org.springframework.web.servlet.handler.SimpleUrlHandlerMapping
+		@SuppressWarnings("unused")
+		User user=userDao.loadById(7000001L);
+		//showUser(user);
+	}
 
 }
