@@ -6,7 +6,7 @@ import com.abc.bt.common.dao.GenericDaoHibernateSupport;
 import com.abc.bt.modules.sample.dao.IUserDao;
 import com.abc.bt.modules.sample.entity.User;
 
-@Repository(value = "userDao")
+@Repository(value = IUserDao.DAO_NAME)
 public class UserDaoImpl extends GenericDaoHibernateSupport<User> implements IUserDao {
 
 }
