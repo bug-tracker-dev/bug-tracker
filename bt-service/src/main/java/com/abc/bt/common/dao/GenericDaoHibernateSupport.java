@@ -87,7 +87,7 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	 *            实体对象的id
 	 */
 	public void deleteById(Serializable id) {
-		T o = this.findById(id);
+		T o = this.loadById(id);
 		if (null == o) {
 			throw new HibernateException("This Object by id is " + id + " does not exist");
 		}
@@ -179,6 +179,18 @@ public class GenericDaoHibernateSupport<T> implements GenericDao<T> {
 	@SuppressWarnings("unchecked")
 	public T findById(Serializable idValue) {
 		return (T) this.getSession().get(persistentClass, idValue);
+	}
+	
+	/**
+	 * 依靠当前实体的id查找该实体.
+	 * 
+	 * @param idValue
+	 *            主键值
+	 * @return 该id实体对象
+	 */
+	@SuppressWarnings("unchecked")
+	public T loadById(Serializable idValue) {
+		return (T) this.getSession().load(persistentClass, idValue);
 	}
 
 	/**

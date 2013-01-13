@@ -218,6 +218,16 @@ public interface GenericDao<T> {
 	 */
 	public Page<T> pageQuery(Page<T> page);
 	
+
+	/**
+	 * 从缓存中根据ID查询对象，如缓存中不存在则返回该代理对象
+	 * 
+	 * @param idValue
+	 * 
+	 * @return
+	 */
+	public T loadById(Serializable idValue);
+	
 	
 	public Session getSession();
 
