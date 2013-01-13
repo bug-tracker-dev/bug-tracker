@@ -6,9 +6,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.abc.bt.common.model.Page;
 import com.abc.bt.modules.sample.dao.IUserDao;
@@ -17,13 +14,13 @@ import com.abc.bt.modules.sample.entity.User;
 import com.abc.bt.modules.sample.service.IBookService;
 import com.abc.bt.modules.sample.service.IUserService;
 
-@Service(value = "userService")
+@Service(value = IUserService.SERVICE_NAME)
 public class UserServiceImpl implements IUserService {
 
-	@Resource(name = "userDao")
+	@Resource(name = IUserDao.DAO_NAME)
 	private IUserDao userDao;
 	
-	@Resource(name = "bookService")
+	@Resource(name = IBookService.SERVICE_NAME)
 	private IBookService bookService;
 
 	@Override
@@ -66,7 +63,7 @@ public class UserServiceImpl implements IUserService {
 	}
 	
 	@Override
-	public User getUserByID(Long id){
+	public User getUserById(Long id){
 		return userDao.findById(id);
 	}
 	
@@ -111,5 +108,10 @@ public class UserServiceImpl implements IUserService {
 	public void saveUsers(Collection<User> users) {
 		userDao.saveAll(users);
 	}
+
+	/*@Override
+	public User loadUserById(Long id) {
+		return userDao.loadById(id);
+	}*/
 
 }

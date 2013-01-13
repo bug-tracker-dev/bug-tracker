@@ -7,11 +7,14 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import com.abc.bt.common.model.Page;
 import com.abc.bt.modules.sample.entity.Book;
 import com.abc.bt.modules.sample.entity.User;
 
 public interface IUserService {
+	
+	public final static String  SERVICE_NAME="userService";
 
 	/**
 	 * 查找所有用户列表
@@ -32,7 +35,7 @@ public interface IUserService {
 	
 	public void removeUserAndRollback(User user);
 	
-	public User getUserByID(Long id);
+	public User getUserById(Long id);
 
 	public List<User> loadUsersByUserName(String username);
 	
@@ -48,5 +51,7 @@ public interface IUserService {
 	public void abcUser(User user);
 	
 	public void saveUsers(Collection<User> users);
+
+	//public User loadUserById(Long id);
 	
 }

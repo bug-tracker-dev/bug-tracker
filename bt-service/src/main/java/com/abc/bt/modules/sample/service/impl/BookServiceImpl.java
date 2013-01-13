@@ -11,17 +11,17 @@ import com.abc.bt.modules.sample.dao.IBookDao;
 import com.abc.bt.modules.sample.entity.Book;
 import com.abc.bt.modules.sample.service.IBookService;
 
-@Service(value="bookService")
-public class BookServiceImpl implements IBookService{
+@Service(value = IBookService.SERVICE_NAME)
+public class BookServiceImpl implements IBookService {
 
-	@Resource(name="bookDao")
+	@Resource(name = IBookDao.DAO_NAME)
 	private IBookDao bookDao;
-	
+
 	@Override
 	public void saveBook(Book book) {
 		bookDao.save(book);
 	}
-	
+
 	@Override
 	public void saveBookAndRollBack(Book book) {
 		bookDao.save(book);
@@ -35,7 +35,6 @@ public class BookServiceImpl implements IBookService{
 
 	@Override
 	public List<Book> findAll() {
-		// TODO Auto-generated method stub
 		return bookDao.findAll();
 	}
 

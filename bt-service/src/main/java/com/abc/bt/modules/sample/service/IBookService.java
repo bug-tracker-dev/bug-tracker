@@ -6,6 +6,8 @@ import java.util.List;
 import com.abc.bt.modules.sample.entity.Book;
 
 public interface IBookService {
+	
+	public final static String SERVICE_NAME="bookService";
 
 	void saveBook(Book book);
 	
