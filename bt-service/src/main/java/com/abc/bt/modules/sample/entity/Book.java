@@ -3,6 +3,7 @@ package com.abc.bt.modules.sample.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -14,6 +15,17 @@ public class Book {
 	@Id
 	private long id;
 	private String bookname;
+	
+	@Version
+	private int version;
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
 
 	public long getId() {
 		return id;

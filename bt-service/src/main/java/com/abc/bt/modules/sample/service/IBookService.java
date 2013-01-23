@@ -16,4 +16,6 @@ public interface IBookService {
 	void saveBooks(Collection<Book> books);
 	
 	public List<Book> findAll();
+	
+	public Book getBookById(Long id);
 }

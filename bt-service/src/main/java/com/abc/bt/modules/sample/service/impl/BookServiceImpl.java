@@ -37,5 +37,10 @@ public class BookServiceImpl implements IBookService {
 	public List<Book> findAll() {
 		return bookDao.findAll();
 	}
+	
+	@Override
+	public Book getBookById(Long id){
+		return bookDao.findById(id);
+	}
 
 }
