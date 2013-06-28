@@ -12,6 +12,8 @@
 
 <input type="button" value="xml" onclick="xml()" /> <br>
 
+<input type="button" value="ws" onclick="ws()" /> <br>
+
 <a href="legacy">legacy request</a>
 <hr>
 

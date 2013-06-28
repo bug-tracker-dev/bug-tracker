@@ -38,7 +38,16 @@ function xml() {
 	});
 }
 
-===================================================
+function ws() {
+	$.ajax({
+	  url: 'ws',
+	  dataType: 'xml',
+	  success: function(data) {
+	  	alert(data);
+	  }
+	});
+}
+
 function jed() {
 	$.ajax({
 	  url: 'error@handler',

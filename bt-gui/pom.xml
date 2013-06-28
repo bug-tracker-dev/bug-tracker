@@ -5,14 +5,15 @@
 	<artifactId>bt-gui</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	
+
 	<properties>
 		<!-- plugin versions -->
-		
-		
+
+
 		<!-- dependency versions -->
 		<springframework.version>3.2.0.RELEASE</springframework.version>
 		<slf4j.version>1.7.2</slf4j.version>
+		<cxf.version>2.7.5</cxf.version>
 		<log4j.version>1.2.14</log4j.version>
 		<jackson.version>1.9.11</jackson.version>
 		<servlet-api.version>2.4</servlet-api.version>
@@ -23,7 +24,7 @@
 	</properties>
 
 	<build>
-		<defaultGoal>tomcat:run</defaultGoal>
+		<defaultGoal>tomcat6:run</defaultGoal>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -39,7 +40,9 @@
 				<artifactId>tomcat6-maven-plugin</artifactId>
 				<version>2.0</version>
 				<configuration>
-					<contextReloadable>true</contextReloadable>
+					<update>true</update>
+					<server>tomcat6</server>
+					<port>9001</port>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -62,7 +65,7 @@
 			<artifactId>spring-test</artifactId>
 			<version>${springframework.version}</version>
 		</dependency>
-		
+
 		<!-- LOG -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -79,7 +82,7 @@
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
-		
+
 		<!-- JAVAEE -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -92,7 +95,7 @@
 			<artifactId>jstl</artifactId>
 			<version>${jstl.version}</version>
 		</dependency>
-		
+
 		<!-- JSON -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -104,7 +107,7 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-		
+
 		<!-- JUNIT -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -116,7 +119,7 @@
 			<artifactId>json-path</artifactId>
 			<version>${jsonpath.version}</version>
 		</dependency>
-		
+
 		<!-- JAXB -->
 		<dependency>
 			<groupId>javax.xml</groupId>
@@ -132,6 +135,27 @@
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>bt-ws</groupId>
+			<artifactId>bt-ws</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>${cxf.version}</version>
 		</dependency>
 	</dependencies>
 </project>
