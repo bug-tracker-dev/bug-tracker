@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.abc.bt.modules.sample.endpoint.SampleEndpoint;
+import com.abc.bt.modules.sample.endpoint.model.req.SampleRequest;
+import com.abc.bt.modules.sample.endpoint.model.resp.SampleResponse;
 import com.abc.bt.modules.sample.model.ComplexForm;
 
 @Controller
@@ -23,6 +27,10 @@ import com.abc.bt.modules.sample.model.ComplexForm;
 public class SampleController {
 
 	private static final Logger _LOG = Logger.getLogger(SampleController.class);
+	
+	
+	@Resource(name="sampleService")
+	private SampleEndpoint sampleEndpoint;
 
 	@RequestMapping(value = "/home")
 	public String home() {
@@ -101,5 +109,14 @@ public class SampleController {
 	@RequestMapping(value = "upload")
 	public void upload(MultipartFile file) {
 		//TODO 
+	}
+	
+	@RequestMapping(value="ws")
+	public @ResponseBody SampleResponse ws(){
+		SampleRequest sampleReuqest = new SampleRequest();
+		sampleReuqest.setRequest("ABC");
+		
+		return sampleEndpoint.echo(sampleReuqest);
+		
 	}
 }
