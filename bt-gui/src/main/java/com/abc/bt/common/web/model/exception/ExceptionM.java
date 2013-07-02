@@ -15,6 +15,9 @@ public class ExceptionM {
 	public ExceptionM(Exception ex) {
 		this.message = ex.getMessage();
 		this.cause = ex.getCause();
+		
+		
+		System.out.println(this.message + " " + this.cause.toString());
 	}
 
 	@XmlElement(name = "message")

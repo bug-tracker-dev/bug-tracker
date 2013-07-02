@@ -13,7 +13,7 @@ http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schema
 	<http-conf:conduit name="{WSDL Namespace}portName.http-conduit">
 		<http-conf:client ConnectionTimeout="30000" ReceiveTimeout="30000" />
 	</http-conf:conduit>
-
+	
 	<cxf:bus>
 		<cxf:features>
 			<cxf:logging />
@@ -24,6 +24,18 @@ http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schema
 			<bean class="org.apache.cxf.transport.common.gzip.GZIPInInterceptor" />
 		</cxf:inInterceptors>
 		<cxf:outInterceptors>
+			<bean class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
+				<constructor-arg>
+					<map>
+						<entry key="action" value="UsernameToken" />
+						<entry key="passwordType" value="PasswordDigest" />
+						<entry key="user" value="BT-GUI" />
+						<entry key="passwordCallbackRef">
+							<bean class="com.abc.bt.common.ws.auth.ClientAuthCallBack" />
+						</entry>
+					</map>
+				</constructor-arg>
+			</bean>
 			<bean class="org.apache.cxf.transport.common.gzip.GZIPOutInterceptor" />
 		</cxf:outInterceptors>
 	</cxf:bus>

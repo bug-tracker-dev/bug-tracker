@@ -115,7 +115,7 @@ public class SampleController {
 	@RequestMapping(value="ws")
 	public @ResponseBody SampleResponse ws() throws ServiceException{
 		SampleRequest sampleReuqest = new SampleRequest();
-		sampleReuqest.setRequest("ABC");
+		sampleReuqest.setRequest("你大爷");
 		
 		return sampleEndpoint.echo(sampleReuqest);
 		

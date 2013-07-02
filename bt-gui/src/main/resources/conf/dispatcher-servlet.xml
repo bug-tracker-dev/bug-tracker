@@ -95,6 +95,7 @@
 	<!-- JSON & XML view -->
 	<bean name="json-view" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
 	<bean name="xml-view" class="org.springframework.web.servlet.view.xml.MarshallingView">
+		<property name="contentType" value="text/html;charset=UTF-8" />
 		<property name="marshaller" ref="jaxb2XMLMarshaller" />
 	</bean>
 

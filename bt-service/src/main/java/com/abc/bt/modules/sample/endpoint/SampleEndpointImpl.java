@@ -14,7 +14,7 @@ public class SampleEndpointImpl implements SampleEndpoint {
 
 	public SampleResponse echo(SampleRequest sampleReuqest) throws ServiceException {
 
-		System.out.println((Integer.parseInt("aaa")));
+		//System.out.println((Integer.parseInt("aaa")));
 		SampleResponse response = new SampleResponse();
 
 		response.setResponse(sampleReuqest.getRequest());
