@@ -19,7 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(value = SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = "classpath*:conf/dispatcher-servlet.xml")
+@ContextConfiguration(locations = {"classpath*:conf/dispatcher-servlet.xml", "classpath*:conf/applicationContext-cxf.xml"})
 public class GUICommonTester2 {
 
 	@Autowired

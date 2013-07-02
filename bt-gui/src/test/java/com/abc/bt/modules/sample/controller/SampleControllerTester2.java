@@ -77,4 +77,20 @@ public class SampleControllerTester2 extends GUICommonTester2 {
 		_LOG.info(o);
 		ra.andExpect(status().isOk());
 	}
+	
+	@Test
+	public void wsxml() throws Exception {
+		ResultActions ra = this.mockMvc.perform(post("/sample/ws").accept(MediaType.APPLICATION_XML));
+		Object o = ra.andReturn().getResponse().getContentAsString();
+		_LOG.info(o);
+		ra.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void wsjson() throws Exception {
+		ResultActions ra = this.mockMvc.perform(post("/sample/ws").accept(MediaType.APPLICATION_JSON));
+		Object o = ra.andReturn().getResponse().getContentAsString();
+		_LOG.info(o);
+		ra.andExpect(status().isOk());
+	}
 }

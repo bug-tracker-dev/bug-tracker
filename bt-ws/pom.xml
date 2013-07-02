@@ -21,4 +21,16 @@
 		</plugins>
 	</build>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-api</artifactId>
+			<version>2.7.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-bindings-soap</artifactId>
+			<version>2.7.5</version>
+		</dependency>
+	</dependencies>
 </project>

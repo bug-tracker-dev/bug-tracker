@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
+import com.abc.bt.common.web.model.exception.ExceptionM;
+
 public class BTMappingExceptionResolver extends SimpleMappingExceptionResolver {
 
 	private Log _LOG = LogFactory.getLog(getClass());
@@ -17,18 +19,18 @@ public class BTMappingExceptionResolver extends SimpleMappingExceptionResolver {
 	protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 		
 		String accept = request.getHeader("Accept");
-		_LOG.info(accept);
+		_LOG.debug(accept);
 		
 		ModelAndView mav = null;
 		Integer statusCode = null;
 		if (accept.contains(MediaType.APPLICATION_XML_VALUE)) {
 			statusCode = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 			mav = new ModelAndView("xml-view");
-			mav.addObject(new Exception(ex));
+			mav.addObject(new ExceptionM(ex));
 		} else if (accept.contains(MediaType.APPLICATION_JSON_VALUE)) {
 			statusCode = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 			mav = new ModelAndView("json-view");
-			mav.addObject(new Exception(ex));
+			mav.addObject(new ExceptionM(ex));
 		} else {
 			String viewName = determineViewName(ex, request);
 			if (viewName != null) {
@@ -36,6 +38,8 @@ public class BTMappingExceptionResolver extends SimpleMappingExceptionResolver {
 				mav = getModelAndView(viewName, ex, request);
 			}
 		}
+		
+		
 		
 		applyStatusCodeIfPossible(request, response, statusCode);
 		

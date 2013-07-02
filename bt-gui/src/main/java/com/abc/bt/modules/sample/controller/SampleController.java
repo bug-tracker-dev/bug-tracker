@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.abc.bt.common.ws.exception.ServiceException;
 import com.abc.bt.modules.sample.endpoint.SampleEndpoint;
 import com.abc.bt.modules.sample.endpoint.model.req.SampleRequest;
 import com.abc.bt.modules.sample.endpoint.model.resp.SampleResponse;
@@ -112,7 +113,7 @@ public class SampleController {
 	}
 	
 	@RequestMapping(value="ws")
-	public @ResponseBody SampleResponse ws(){
+	public @ResponseBody SampleResponse ws() throws ServiceException{
 		SampleRequest sampleReuqest = new SampleRequest();
 		sampleReuqest.setRequest("ABC");
 		
