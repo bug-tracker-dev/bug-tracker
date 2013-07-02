@@ -15,20 +15,32 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 			<cxf:logging />
 		</cxf:features>
 
+		<!-- make exception message understandable -->
 		<cxf:outFaultInterceptors>
 			<bean class="com.abc.bt.common.ws.interceptor.OutFaultInterceptor" />
 		</cxf:outFaultInterceptors>
-		
+
+		<!-- compress the exchange data size -->
+		<cxf:inInterceptors>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPInInterceptor" />
+		</cxf:inInterceptors>
+		<cxf:outInterceptors>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPOutInterceptor" />
+		</cxf:outInterceptors>
+
 		<cxf:properties>
-			<!-- Boolean property specifying if the name of the exception that caused the Java stack trace is returned. -->
+			<!-- Boolean property specifying if the name of the exception that caused 
+				the Java stack trace is returned. -->
 			<entry key="exceptionMessageCauseEnabled" value="true" />
-			
-			<!-- Boolean property specifying if the Java stack trace is returned as a SOAP fault message. -->
+
+			<!-- Boolean property specifying if the Java stack trace is returned as 
+				a SOAP fault message. -->
 			<entry key="faultStackTraceEnabled" value="true" />
 		</cxf:properties>
-		
+
 	</cxf:bus>
 
-	<jaxws:endpoint id="sampleEndpoint" implementor="#sampleEndpointImplementor" address="/SampleService" />
+	<jaxws:endpoint id="sampleEndpoint" implementor="#sampleEndpointImplementor"
+		address="/SampleService" />
 
 </beans>

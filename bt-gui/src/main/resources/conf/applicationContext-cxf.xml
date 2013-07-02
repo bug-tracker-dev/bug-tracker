@@ -8,16 +8,24 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
 http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
 http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
 ">
-	
-	
+
+
 	<http-conf:conduit name="{WSDL Namespace}portName.http-conduit">
-		<http-conf:client ConnectionTimeout="30000" ReceiveTimeout="30000"/>
+		<http-conf:client ConnectionTimeout="30000" ReceiveTimeout="30000" />
 	</http-conf:conduit>
-	
+
 	<cxf:bus>
 		<cxf:features>
 			<cxf:logging />
 		</cxf:features>
+
+		<!-- compress the exchange data size -->
+		<cxf:inInterceptors>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPInInterceptor" />
+		</cxf:inInterceptors>
+		<cxf:outInterceptors>
+			<bean class="org.apache.cxf.transport.common.gzip.GZIPOutInterceptor" />
+		</cxf:outInterceptors>
 	</cxf:bus>
 
 	<jaxws:client id="sampleService"
