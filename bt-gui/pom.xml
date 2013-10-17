@@ -21,6 +21,7 @@
 		<junit.version>4.11</junit.version>
 		<jsonpath.version>0.8.1</jsonpath.version>
 		<jaxb.version>2.1</jaxb.version>
+		<fastInfoset.version>1.2.13</fastInfoset.version>
 	</properties>
 
 	<build>
@@ -156,6 +157,12 @@
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-frontend-jaxws</artifactId>
 			<version>${cxf.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.sun.xml.fastinfoset</groupId>
+			<artifactId>FastInfoset</artifactId>
+			<version>${fastInfoset.version}</version>
 		</dependency>
 	</dependencies>
 </project>
