@@ -17,6 +17,7 @@ http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schema
 	<cxf:bus>
 		<cxf:features>
 			<cxf:logging />
+			<cxf:fastinfoset />
 		</cxf:features>
 
 		<!-- compress the exchange data size -->
@@ -40,8 +41,5 @@ http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schema
 		</cxf:outInterceptors>
 	</cxf:bus>
 
-	<jaxws:client id="sampleService"
-		serviceClass="com.abc.bt.modules.sample.endpoint.SampleEndpoint"
-		address="http://localhost:9002/bt-service/ws/SampleService">
-	</jaxws:client>
+	<jaxws:client id="sampleService" serviceClass="com.abc.bt.modules.sample.endpoint.SampleEndpoint" address="http://localhost:9002/bt-service/ws/SampleService" />
 </beans>
