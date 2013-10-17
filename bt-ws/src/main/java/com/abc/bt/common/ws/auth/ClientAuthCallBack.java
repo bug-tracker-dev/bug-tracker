@@ -14,8 +14,8 @@ public class ClientAuthCallBack implements CallbackHandler {
 	public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
 		WSPasswordCallback pc = (WSPasswordCallback) callbacks[0];
 		
-		//pc.setIdentifier("admin");
-		pc.setIdentifier("abcd");
+		pc.setIdentifier("admin");
+		//pc.setIdentifier("abcd");
 		pc.setPassword("888888");
 		//pc.setPassword("123");
 
